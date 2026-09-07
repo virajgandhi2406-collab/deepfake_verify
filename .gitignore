@@ -1,0 +1,24 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+
+# Visual Studio user settings and build output
+.vs/
+bin/
+obj/
+Debug/
+Release/
+x64/
+x86/
+
+# Local IDE and operating-system files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini

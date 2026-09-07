@@ -1,0 +1,254 @@
+[
+  {
+    "index": 0,
+    "filename": "1000444332.jpg",
+    "content_hash": "b1e6e9570b88ff6ed82e00ead0134f10a3f27d0e23900da7e531e8a5a75f4743",
+    "perceptual_hash": "00e3fffffffffe40",
+    "ai_result": {
+      "deepfake_probability": 0.2245,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:04:21.810248+00:00"
+    },
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "recorded_at": "2026-09-05T09:04:21.818930+00:00",
+    "block_hash": "68a3853f49244c785b2b6a92a2e5b8aa0f46ab7ac44cfa5209811076bc8c7d18"
+  },
+  {
+    "index": 1,
+    "filename": "1000444195.jpg",
+    "content_hash": "752c271b961ccb1cc00b824ee4f8739c774c5a5cf5762634ab025422bb2accc2",
+    "perceptual_hash": "e32103dbff722327",
+    "ai_result": {
+      "deepfake_probability": 0.5498,
+      "authenticity_flag": "Potentially Manipulated",
+      "manipulation_type": "Uncertain \u2014 possible compression or partial edit",
+      "timestamp": "2026-09-05T09:04:59.116038+00:00"
+    },
+    "previous_hash": "68a3853f49244c785b2b6a92a2e5b8aa0f46ab7ac44cfa5209811076bc8c7d18",
+    "recorded_at": "2026-09-05T09:04:59.117353+00:00",
+    "block_hash": "4c9a1093c8da1461b8c53d4897642e381b03e04540fd683b0cc1551201ea1a1c"
+  },
+  {
+    "index": 2,
+    "filename": "broker3 - Copy.jpg",
+    "content_hash": "0c04a93094d4f75cac90e6d36f909e36f39bd30014041a350d522cb956b0ea1f",
+    "perceptual_hash": "ffee0e3efc0808f0",
+    "ai_result": {
+      "deepfake_probability": 0.0746,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:05:31.651088+00:00"
+    },
+    "previous_hash": "4c9a1093c8da1461b8c53d4897642e381b03e04540fd683b0cc1551201ea1a1c",
+    "recorded_at": "2026-09-05T09:05:31.655701+00:00",
+    "block_hash": "86f00af681cb52619e4c2d54fe1e7e4c050c0dc8e37c5e38255ee21744f69204"
+  },
+  {
+    "index": 3,
+    "filename": "1000439380.jpg",
+    "content_hash": "ee4b95d9e5d3ab98e39ebc4a0f30b31013b5194641a46f09408777760cf70b9a",
+    "perceptual_hash": "011b7f7b7b730100",
+    "ai_result": {
+      "deepfake_probability": 0.0897,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:05:47.397592+00:00"
+    },
+    "previous_hash": "86f00af681cb52619e4c2d54fe1e7e4c050c0dc8e37c5e38255ee21744f69204",
+    "recorded_at": "2026-09-05T09:05:47.401534+00:00",
+    "block_hash": "ee44242b59e647e07b288054b991cf655eb9a0124b22f95cd0a5210f0615ea22"
+  },
+  {
+    "index": 4,
+    "filename": "ChatGPT Image Feb 1, 2026, 05_05_14 PM.png",
+    "content_hash": "c852e5ca3982fcda757ece0c6b206091a1f18dbb0a54a1910586a7d3832a31a4",
+    "perceptual_hash": "00181c1c3c183e1a",
+    "ai_result": {
+      "deepfake_probability": 0.2058,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:05:58.821904+00:00"
+    },
+    "previous_hash": "ee44242b59e647e07b288054b991cf655eb9a0124b22f95cd0a5210f0615ea22",
+    "recorded_at": "2026-09-05T09:05:58.822713+00:00",
+    "block_hash": "fd113a56b0f0403a0ddce306bcbffbe1ae6f8fa5bf9bcd73d96804922171cdc7"
+  },
+  {
+    "index": 5,
+    "filename": "jirapfp.jpg",
+    "content_hash": "a6f9bc6b768a3afe00fe84bcb0ecd20985c434be876c1463939f3404e46235a0",
+    "perceptual_hash": "00183c667e3c1000",
+    "ai_result": {
+      "deepfake_probability": 0.1411,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:06:18.440924+00:00"
+    },
+    "previous_hash": "fd113a56b0f0403a0ddce306bcbffbe1ae6f8fa5bf9bcd73d96804922171cdc7",
+    "recorded_at": "2026-09-05T09:06:18.442038+00:00",
+    "block_hash": "3980851ce88d8d5424290f46e09cf6c86bec529fc8f230a1aedee14544a96868"
+  },
+  {
+    "index": 6,
+    "filename": "Screenshot 2025-07-15 130005.png",
+    "content_hash": "6db5b95ee3f40e105cb5bbc279c0e427a93be6aeaa8d137f440ad84f10285c1e",
+    "perceptual_hash": "8103878183839f9f",
+    "ai_result": {
+      "deepfake_probability": 0.5314,
+      "authenticity_flag": "Potentially Manipulated",
+      "manipulation_type": "Uncertain \u2014 possible compression or partial edit",
+      "timestamp": "2026-09-05T09:06:40.423898+00:00"
+    },
+    "previous_hash": "3980851ce88d8d5424290f46e09cf6c86bec529fc8f230a1aedee14544a96868",
+    "recorded_at": "2026-09-05T09:06:40.424882+00:00",
+    "block_hash": "e4d0187f6877f95ec2be6c3c83b1c8cce249e8be37cae0d88ba9456b88bfdac0"
+  },
+  {
+    "index": 7,
+    "filename": "Screenshot 2025-06-18 002000.png",
+    "content_hash": "a6bc5b336aa430688bdd9cef71c50a313b172866ae5dfc3c9b3897f6729c16bb",
+    "perceptual_hash": "ff1f018048e9c9ff",
+    "ai_result": {
+      "deepfake_probability": 0.2342,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:10:52.020989+00:00"
+    },
+    "previous_hash": "e4d0187f6877f95ec2be6c3c83b1c8cce249e8be37cae0d88ba9456b88bfdac0",
+    "recorded_at": "2026-09-05T09:10:52.022426+00:00",
+    "block_hash": "452efcecb981de052fa6e790611ef671cac74cd19a29df709a44813ad706748c"
+  },
+  {
+    "index": 8,
+    "filename": "ChatGPT Image Feb 5, 2026, 12_38_52 PM.png",
+    "content_hash": "a1ef3d900f8d6f9b55ce4be79e872b9b42ac1f1511605a49b2d4385d2b87778a",
+    "perceptual_hash": "ffd8c898ff8000b3",
+    "ai_result": {
+      "deepfake_probability": 0.2111,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:11:27.778574+00:00"
+    },
+    "previous_hash": "452efcecb981de052fa6e790611ef671cac74cd19a29df709a44813ad706748c",
+    "recorded_at": "2026-09-05T09:11:27.779340+00:00",
+    "block_hash": "6873f92eb4afbf8d605f8cddbc0e86e25d3b7f5de62caa55b3a2c3d5235e4489"
+  },
+  {
+    "index": 9,
+    "filename": "generated-image (4).png",
+    "content_hash": "d22a23b953bfb140d91af174e9e62f6b9742d86655fb100eb1e0a1c21ec9f097",
+    "perceptual_hash": "03430a64f0e00961",
+    "ai_result": {
+      "deepfake_probability": 0.1254,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "timestamp": "2026-09-05T09:11:48.339387+00:00"
+    },
+    "previous_hash": "6873f92eb4afbf8d605f8cddbc0e86e25d3b7f5de62caa55b3a2c3d5235e4489",
+    "recorded_at": "2026-09-05T09:11:48.343759+00:00",
+    "block_hash": "75b292a2db92d71dc75a9e90879e75ea177a652695b64e8a309ca62965ed9e73"
+  },
+  {
+    "index": 10,
+    "filename": "ChatGPT Image Sep 5, 2026, 02_46_10 PM.png",
+    "content_hash": "23537189f259aad0e7ff13245fbbeecd4199fadb9ad8bdbf8f5dcfe918f92ef8",
+    "perceptual_hash": "ff07f9e80080f8ff",
+    "ai_result": {
+      "deepfake_probability": 0.1124,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "ai_generated": false,
+      "timestamp": "2026-09-05T09:16:22.162107+00:00"
+    },
+    "previous_hash": "75b292a2db92d71dc75a9e90879e75ea177a652695b64e8a309ca62965ed9e73",
+    "recorded_at": "2026-09-05T09:16:22.163540+00:00",
+    "block_hash": "94a2e293c81cf40c2f145abed5c95f13799bd76c4bffbbf443618dc6848cf865"
+  },
+  {
+    "index": 11,
+    "filename": "ChatGPT Image endpoint test.png",
+    "content_hash": "773bdfa2a9752f4a22347d8f45d4af44764bccf1cfce414c1913ff101be7d5f4",
+    "perceptual_hash": "0000000000000000",
+    "ai_result": {
+      "deepfake_probability": 0.98,
+      "authenticity_flag": "AI-Generated",
+      "manipulation_type": "Likely AI-generated (AI-generator name found in the filename)",
+      "ai_generated": true,
+      "timestamp": "2026-09-05T09:18:19.229421+00:00"
+    },
+    "previous_hash": "94a2e293c81cf40c2f145abed5c95f13799bd76c4bffbbf443618dc6848cf865",
+    "recorded_at": "2026-09-05T09:18:19.230135+00:00",
+    "block_hash": "536d720d6aa95139d415882f892a894822c57852a1845c723d6dba9249da2eb2"
+  },
+  {
+    "index": 12,
+    "filename": "ChatGPT Image Feb 1, 2026, 05_01_29 PM.png",
+    "content_hash": "a67a262294024994737cd1a8be77618ed2d60f5c3a4093c8cdfa73f0943c3ad7",
+    "perceptual_hash": "00181c1c3c383e3a",
+    "ai_result": {
+      "deepfake_probability": 0.98,
+      "authenticity_flag": "AI-Generated",
+      "manipulation_type": "Likely AI-generated (AI-generator name found in the filename)",
+      "ai_generated": true,
+      "timestamp": "2026-09-05T09:19:30.310218+00:00"
+    },
+    "previous_hash": "536d720d6aa95139d415882f892a894822c57852a1845c723d6dba9249da2eb2",
+    "recorded_at": "2026-09-05T09:19:30.311572+00:00",
+    "block_hash": "b41813668f454a1824d669d4d34a9a1605c92b43bcee0c9e521d760a61466596"
+  },
+  {
+    "index": 13,
+    "filename": "Screenshot 2025-07-16 092829.png",
+    "content_hash": "2ea7ad9dc38732433abda0cc93cd6148fb3d2bdef419a9856b35a4d78dc3bd2a",
+    "perceptual_hash": "e000f8f800c0e0e0",
+    "ai_result": {
+      "deepfake_probability": 0.2954,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "ai_generated": false,
+      "timestamp": "2026-09-05T09:19:57.748986+00:00"
+    },
+    "previous_hash": "b41813668f454a1824d669d4d34a9a1605c92b43bcee0c9e521d760a61466596",
+    "recorded_at": "2026-09-05T09:19:57.749846+00:00",
+    "block_hash": "1a8a6576e4814f2d8e585a57ed8daa074fa1f59c1bcae12b1cb84cd51613974c"
+  },
+  {
+    "index": 14,
+    "filename": "ChatGPT generated endpoint test.mp4",
+    "content_hash": "a93a17bb043218cac54e0a75ec4cae3de2b4cbb5df75fa8ed9f4f610a798dc86",
+    "perceptual_hash": "video-frame-analysis",
+    "ai_result": {
+      "deepfake_probability": 0.98,
+      "authenticity_flag": "AI-Generated",
+      "manipulation_type": "Likely AI-generated video (generator provenance clue detected)",
+      "ai_generated": true,
+      "media_type": "video",
+      "frames_analyzed": 4,
+      "duration_seconds": 0.8,
+      "timestamp": "2026-09-05T09:32:13.479801+00:00"
+    },
+    "previous_hash": "1a8a6576e4814f2d8e585a57ed8daa074fa1f59c1bcae12b1cb84cd51613974c",
+    "recorded_at": "2026-09-05T09:32:13.480195+00:00",
+    "block_hash": "8fb47d1a9f260815a2ad27bc2566fb56e006ab703a6f77553db056ea582f60df"
+  },
+  {
+    "index": 15,
+    "filename": "c748fe7ff5_wallsflow_anime-cozy-night-room.mp4",
+    "content_hash": "4c3c2d21743cf5c55b2a660cf2226be90150d91b6e77fe06458720293f041c79",
+    "perceptual_hash": "video-frame-analysis",
+    "ai_result": {
+      "deepfake_probability": 0.1405,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "No strong manipulation indicators detected in sampled frames",
+      "ai_generated": false,
+      "media_type": "video",
+      "frames_analyzed": 11,
+      "duration_seconds": 5.04,
+      "timestamp": "2026-09-05T09:32:40.427837+00:00"
+    },
+    "previous_hash": "8fb47d1a9f260815a2ad27bc2566fb56e006ab703a6f77553db056ea582f60df",
+    "recorded_at": "2026-09-05T09:32:40.428401+00:00",
+    "block_hash": "fee78c5995b8c97b6036304c225842dcd9f4829fcbc8e7bc5947699157b1b0a9"
+  }
+]

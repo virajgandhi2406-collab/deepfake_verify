@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Content Verification Ledger</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#11151a;
+    --panel:#171c23;
+    --line:#2a323d;
+    --text:#e7e9ec;
+    --muted:#8a94a3;
+    --verified:#4fd1a5;
+    --warn:#e2b23b;
+    --fake:#e2586b;
+    --accent:#5b8def;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Space Grotesk', sans-serif;
+    min-height:100vh;
+  }
+  header{
+    padding:2.2rem 2rem 1.4rem;
+    border-bottom:1px solid var(--line);
+  }
+  header h1{
+    margin:0 0 .3rem;
+    font-size:1.5rem;
+    font-weight:700;
+    letter-spacing:.2px;
+  }
+  header p{
+    margin:0;
+    color:var(--muted);
+    font-size:.92rem;
+    max-width:60ch;
+  }
+  main{
+    max-width:960px;
+    margin:0 auto;
+    padding:2rem;
+    display:grid;
+    gap:1.6rem;
+  }
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:1.6rem;
+  }
+  .dropzone{
+    border:1.5px dashed var(--line);
+    border-radius:10px;
+    padding:2.4rem 1.5rem;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .dropzone:hover, .dropzone.drag{
+    border-color:var(--accent);
+    background:rgba(91,141,239,0.06);
+  }
+  .dropzone p{margin:.3rem 0; color:var(--muted); font-size:.9rem;}
+  .dropzone strong{color:var(--text); font-size:1rem;}
+  input[type=file]{display:none;}
+  .btn{
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:.65rem 1.2rem;
+    border-radius:7px;
+    font-family:inherit;
+    font-weight:600;
+    font-size:.9rem;
+    cursor:pointer;
+    margin-top:1rem;
+  }
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+  .mode-switch{display:flex; gap:.6rem; margin-bottom:1rem;}
+  .mode-btn{background:transparent; color:var(--muted); border:1px solid var(--line); padding:.55rem 1rem; border-radius:7px; font:inherit; font-weight:600; cursor:pointer;}
+  .mode-btn.active{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .preview{
+    max-width:220px;
+    max-height:220px;
+    border-radius:8px;
+    margin-top:1rem;
+    display:none;
+    border:1px solid var(--line);
+  }
+  .verdict{
+    display:none;
+    grid-template-columns:1fr 1fr;
+    gap:1.2rem;
+  }
+  .verdict .badge{
+    display:inline-block;
+    padding:.3rem .75rem;
+    border-radius:20px;
+    font-size:.8rem;
+    font-weight:600;
+    margin-bottom:.9rem;
+  }
+  .badge.Authentic{background:rgba(79,209,165,.15); color:var(--verified);}
+  .badge.Potentially{background:rgba(226,178,59,.15); color:var(--warn);}
+  .badge.Manipulated{background:rgba(226,88,107,.15); color:var(--fake);}
+  .badge.AI-Generated{background:rgba(226,88,107,.15); color:var(--fake);}
+  .field{margin-bottom:.85rem;}
+  .field .label{color:var(--muted); font-size:.75rem; text-transform:uppercase; letter-spacing:.6px; margin-bottom:.2rem;}
+  .field .value{font-family:'JetBrains Mono', monospace; font-size:.85rem; word-break:break-all;}
+  .score-bar{
+    height:8px;
+    border-radius:4px;
+    background:var(--line);
+    overflow:hidden;
+    margin-top:.3rem;
+  }
+  .score-fill{height:100%; border-radius:4px;}
+  table{width:100%; border-collapse:collapse; font-size:.85rem;}
+  th, td{text-align:left; padding:.5rem .4rem; border-bottom:1px solid var(--line);}
+  th{color:var(--muted); font-weight:600; font-size:.75rem; text-transform:uppercase; letter-spacing:.5px;}
+  td.mono{font-family:'JetBrains Mono', monospace; font-size:.78rem;}
+  .empty{color:var(--muted); font-size:.85rem; padding:1rem 0;}
+  .status-line{font-size:.85rem; color:var(--muted); margin-top:.8rem;}
+  h2{font-size:1rem; margin:0 0 1rem; font-weight:600;}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Content Verification Ledger</h1>
+  <p>Verify images and videos against a tamper-resistant ledger with deepfake analysis, cryptographic fingerprints, and hash-chain history.</p>
+</header>
+
+<main>
+  <section class="panel">
+    <h2>Choose content type</h2>
+    <div class="mode-switch" role="group" aria-label="Content type">
+      <button class="mode-btn active" id="imageMode" type="button">Image</button>
+      <button class="mode-btn" id="videoMode" type="button">Video</button>
+    </div>
+    <div class="dropzone" id="dropzone">
+      <strong id="dropTitle">Drop an image here or click to choose a file</strong>
+      <p id="dropHint">JPG or PNG · analysed locally against the ledger</p>
+      <input type="file" id="fileInput" accept="image/*">
+      <img id="preview" class="preview">
+    </div>
+    <button class="btn" id="verifyBtn" disabled>Run verification</button>
+    <div class="status-line" id="status"></div>
+  </section>
+
+  <section class="panel verdict" id="verdictPanel">
+    <div>
+      <div class="field">
+        <div class="label">Image assessment</div>
+        <span class="badge" id="badge"></span>
+        <div class="value" id="assessmentText" style="margin-top:.45rem;"></div>
+      </div>
+      <div class="field">
+        <div class="label">Deepfake probability</div>
+        <div class="score-bar"><div class="score-fill" id="scoreFill"></div></div>
+        <div class="value" id="scoreValue" style="margin-top:.3rem;"></div>
+      </div>
+      <div class="field">
+        <div class="label">Manipulation type</div>
+        <div class="value" id="manipType"></div>
+      </div>
+      <div class="field">
+        <div class="label">Hash status</div>
+        <div class="value" id="hashStatus"></div>
+      </div>
+    </div>
+    <div>
+      <div class="field">
+        <div class="label">SHA-256 content hash</div>
+        <div class="value" id="contentHash"></div>
+      </div>
+      <div class="field">
+        <div class="label">Perceptual hash</div>
+        <div class="value" id="perceptHash"></div>
+      </div>
+      <div class="field">
+        <div class="label">Ledger block</div>
+        <div class="value" id="ledgerBlock"></div>
+      </div>
+      <div class="field">
+        <div class="label">Recorded at</div>
+        <div class="value" id="recordedAt"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Verification history log</h2>
+    <div id="historyWrap"><div class="empty">No records yet — verify a file above.</div></div>
+  </section>
+</main>
+
+<script>
+const API_BASE = "http://127.0.0.1:8000";
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const preview = document.getElementById('preview');
+const verifyBtn = document.getElementById('verifyBtn');
+const statusEl = document.getElementById('status');
+const imageMode = document.getElementById('imageMode');
+const videoMode = document.getElementById('videoMode');
+const dropTitle = document.getElementById('dropTitle');
+const dropHint = document.getElementById('dropHint');
+let selectedFile = null;
+let mediaType = 'image';
+
+function setMediaType(type){
+  mediaType = type;
+  selectedFile = null;
+  verifyBtn.disabled = true;
+  preview.style.display = 'none';
+  imageMode.classList.toggle('active', type === 'image');
+  videoMode.classList.toggle('active', type === 'video');
+  fileInput.accept = type === 'image' ? 'image/*' : 'video/*';
+  dropTitle.textContent = type === 'image' ? 'Drop an image here or click to choose a file' : 'Drop a video here or click to choose a file';
+  dropHint.textContent = type === 'image' ? 'JPG or PNG · analysed locally against the ledger' : 'MP4, MOV, AVI, MKV, or WEBM · sampled frame analysis';
+  statusEl.textContent = '';
+}
+
+imageMode.addEventListener('click', () => setMediaType('image'));
+videoMode.addEventListener('click', () => setMediaType('video'));
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('drag');
+  if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+});
+fileInput.addEventListener('change', e => { if (e.target.files.length) handleFile(e.target.files[0]); });
+
+function handleFile(file){
+  if (mediaType === 'image' && !file.type.startsWith('image/')) { statusEl.textContent = 'Please select an image.'; return; }
+  if (mediaType === 'video' && !file.type.startsWith('video/')) { statusEl.textContent = 'Please select a video.'; return; }
+  selectedFile = file;
+  if (mediaType === 'image') {
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = 'block';
+  }
+  verifyBtn.disabled = false;
+  statusEl.textContent = `Selected: ${file.name}`;
+}
+
+verifyBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+  verifyBtn.disabled = true;
+  statusEl.textContent = 'Running AI analysis + ledger lookup…';
+
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+
+  try {
+    const endpoint = mediaType === 'image' ? '/verify' : '/verify-video';
+    const res = await fetch(`${API_BASE}${endpoint}`, { method: 'POST', body: formData });
+    if (!res.ok) throw new Error(`Server responded ${res.status}`);
+    const cert = await res.json();
+    renderVerdict(cert);
+    statusEl.textContent = `${mediaType === 'video' ? 'Video' : 'Image'} verification complete.`;
+    loadHistory();
+  } catch (err) {
+    statusEl.textContent = `Error: ${err.message}. Is the backend running at ${API_BASE}?`;
+  } finally {
+    verifyBtn.disabled = false;
+  }
+});
+
+function renderVerdict(cert){
+  document.getElementById('verdictPanel').style.display = 'grid';
+  const badge = document.getElementById('badge');
+  const verdictClass = cert.verdict.split(' ')[0];
+  badge.textContent = cert.verdict;
+  badge.className = 'badge ' + verdictClass;
+  const assessmentText = cert.ai_generated
+    ? 'Likely AI-generated — provenance clues from a known image generator were detected.'
+    : cert.verdict === 'Authentic'
+    ? 'Likely authentic — no strong signs of editing or AI generation detected.'
+    : cert.verdict === 'Potentially Manipulated'
+      ? 'Possibly edited or AI-generated — review the image manually.'
+      : 'Likely edited or AI-generated — strong manipulation indicators detected.';
+  document.getElementById('assessmentText').textContent = assessmentText;
+
+  const pct = Math.round(cert.deepfake_probability * 100);
+  document.getElementById('scoreValue').textContent = `${pct}%`;
+  const fill = document.getElementById('scoreFill');
+  fill.style.width = pct + '%';
+  fill.style.background = pct < 35 ? 'var(--verified)' : pct < 65 ? 'var(--warn)' : 'var(--fake)';
+
+  document.getElementById('manipType').textContent = cert.manipulation_type;
+  document.getElementById('hashStatus').textContent = cert.hash_status;
+  document.getElementById('contentHash').textContent = cert.content_hash_sha256;
+  document.getElementById('perceptHash').textContent = cert.perceptual_hash;
+  document.getElementById('ledgerBlock').textContent = `#${cert.ledger_index} — ${cert.ledger_block_hash.slice(0,16)}…`;
+  document.getElementById('recordedAt').textContent = cert.recorded_at;
+}
+
+async function loadHistory(){
+  try {
+    const res = await fetch(`${API_BASE}/history`);
+    const records = await res.json();
+    const wrap = document.getElementById('historyWrap');
+    if (!records.length) { wrap.innerHTML = '<div class="empty">No records yet — verify a file above.</div>'; return; }
+
+    let rows = records.slice().reverse().map(r => `
+      <tr>
+        <td>#${r.index}</td>
+        <td>${r.filename}</td>
+        <td>${r.ai_result.authenticity_flag}</td>
+        <td>${Math.round(r.ai_result.deepfake_probability * 100)}%</td>
+        <td class="mono">${r.content_hash.slice(0,14)}…</td>
+      </tr>`).join('');
+
+    wrap.innerHTML = `<table>
+      <thead><tr><th>Block</th><th>File</th><th>Verdict</th><th>Score</th><th>Hash</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
+  } catch (err) { /* backend not running yet */ }
+}
+
+loadHistory();
+</script>
+
+</body>
+</html>
