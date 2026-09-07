@@ -14,6 +14,7 @@ Then open: http://127.0.0.1:8000/docs   (interactive API docs)
 import os
 import shutil
 import tempfile
+from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -130,3 +131,7 @@ async def ledger_integrity():
 @app.get("/health")
 async def health():
     return {"status": "ok"}
+
+
+frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
+app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
