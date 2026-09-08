@@ -12,8 +12,15 @@ Then open: http://127.0.0.1:8000/docs   (interactive API docs)
 """
 
 import os
+import hashlib
+import hmac
+import json
+import secrets
 import shutil
 import tempfile
+import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
@@ -34,6 +41,91 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+otp_store: dict[str, dict[str, float | int | str]] = {}
+otp_ttl_seconds = 600
+max_otp_attempts = 5
+
+
+def _normalise_email(value: object) -> str:
+    return str(value or "").strip().lower()
+
+
+def _otp_digest(email: str, code: str) -> str:
+    return hashlib.sha256(f"{email}:{code}".encode()).hexdigest()
+
+
+def _send_otp_email(email: str, code: str) -> None:
+    api_key = os.getenv("RESEND_API_KEY")
+    sender = os.getenv("MAIL_FROM")
+    if not api_key or not sender:
+        raise HTTPException(
+            status_code=503,
+            detail="Email delivery is not configured. Set RESEND_API_KEY and MAIL_FROM.",
+        )
+
+    payload = json.dumps(
+        {
+            "from": sender,
+            "to": [email],
+            "subject": "Your Verity sign-in code",
+            "html": (
+                "<p>Your Verity sign-in code is:</p>"
+                f"<p style='font-size:28px;font-weight:700;letter-spacing:6px'>{code}</p>"
+                "<p>This code expires in 10 minutes.</p>"
+            ),
+        }
+    ).encode()
+    request = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={
+            "Authorization": f"Bearer {api_key}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=10):
+            return
+    except (urllib.error.HTTPError, urllib.error.URLError) as error:
+        raise HTTPException(status_code=502, detail="The verification email could not be sent.") from error
+
+
+@app.post("/auth/request-otp")
+async def request_otp(payload: dict[str, object]):
+    email = _normalise_email(payload.get("email"))
+    if "@" not in email or "." not in email.rsplit("@", 1)[-1]:
+        raise HTTPException(status_code=422, detail="Enter a valid email address.")
+
+    code = f"{secrets.randbelow(1_000_000):06d}"
+    _send_otp_email(email, code)
+    otp_store[email] = {
+        "digest": _otp_digest(email, code),
+        "expires": time.time() + otp_ttl_seconds,
+        "attempts": 0,
+    }
+    return {"status": "sent", "expires_in": otp_ttl_seconds}
+
+
+@app.post("/auth/verify-otp")
+async def verify_otp(payload: dict[str, object]):
+    email = _normalise_email(payload.get("email"))
+    code = str(payload.get("code") or "").strip()
+    record = otp_store.get(email)
+    if not record or time.time() > float(record["expires"]):
+        otp_store.pop(email, None)
+        raise HTTPException(status_code=401, detail="That code has expired. Request a new one.")
+    if int(record["attempts"]) >= max_otp_attempts:
+        otp_store.pop(email, None)
+        raise HTTPException(status_code=429, detail="Too many attempts. Request a new code.")
+
+    record["attempts"] = int(record["attempts"]) + 1
+    if not hmac.compare_digest(str(record["digest"]), _otp_digest(email, code)):
+        raise HTTPException(status_code=401, detail="That code is not correct.")
+
+    otp_store.pop(email, None)
+    return {"verified": True, "email": email}
 
 
 @app.post("/verify")
