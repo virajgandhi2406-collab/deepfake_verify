@@ -23,7 +23,10 @@ import hashlib
 import os
 from datetime import datetime, timezone
 
-LEDGER_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "ledger.json")
+SOURCE_LEDGER_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "ledger.json")
+RUNTIME_LEDGER_PATH = os.getenv("LEDGER_PATH") or (
+    "/tmp/ledger.json" if os.getenv("VERCEL") else SOURCE_LEDGER_PATH
+)
 
 
 def _block_hash(block: dict) -> str:
@@ -34,15 +37,16 @@ def _block_hash(block: dict) -> str:
 
 
 def _load_chain() -> list:
-    if not os.path.exists(LEDGER_PATH):
+    path = RUNTIME_LEDGER_PATH if os.path.exists(RUNTIME_LEDGER_PATH) else SOURCE_LEDGER_PATH
+    if not os.path.exists(path):
         return []
-    with open(LEDGER_PATH, "r") as f:
+    with open(path, "r") as f:
         return json.load(f)
 
 
 def _save_chain(chain: list) -> None:
-    os.makedirs(os.path.dirname(LEDGER_PATH), exist_ok=True)
-    with open(LEDGER_PATH, "w") as f:
+    os.makedirs(os.path.dirname(RUNTIME_LEDGER_PATH), exist_ok=True)
+    with open(RUNTIME_LEDGER_PATH, "w") as f:
         json.dump(chain, f, indent=2)
 
 
