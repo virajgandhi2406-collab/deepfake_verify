@@ -250,5 +250,72 @@
     "previous_hash": "8fb47d1a9f260815a2ad27bc2566fb56e006ab703a6f77553db056ea582f60df",
     "recorded_at": "2026-09-05T09:32:40.428401+00:00",
     "block_hash": "fee78c5995b8c97b6036304c225842dcd9f4829fcbc8e7bc5947699157b1b0a9"
+  },
+  {
+    "index": 16,
+    "filename": "1000446740.jpg",
+    "content_hash": "004671d229a8194ec251d705068c0d3fd34245bbc240fb28700f2f8121a975ff",
+    "perceptual_hash": "1b16821f0100f3f0",
+    "ai_result": {
+      "deepfake_probability": 0.2099,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "ai_generated": false,
+      "timestamp": "2026-09-08T08:43:10.873781+00:00"
+    },
+    "previous_hash": "fee78c5995b8c97b6036304c225842dcd9f4829fcbc8e7bc5947699157b1b0a9",
+    "recorded_at": "2026-09-08T08:43:10.876584+00:00",
+    "block_hash": "83530e7c38afb419b6a3b8fa3f106a86087ebd355e98cf984a4ecaa500c04743"
+  },
+  {
+    "index": 17,
+    "filename": "Screenshot 2026-09-07 115823.png",
+    "content_hash": "864cb84b128fe9260ae28746bad6981dfd6ed6b37f12fb40b40e4123120dd208",
+    "perceptual_hash": "fff0f0f0f0f0ffff",
+    "ai_result": {
+      "deepfake_probability": 0.345,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "ai_generated": false,
+      "timestamp": "2026-09-08T08:44:31.151531+00:00"
+    },
+    "previous_hash": "83530e7c38afb419b6a3b8fa3f106a86087ebd355e98cf984a4ecaa500c04743",
+    "recorded_at": "2026-09-08T08:44:31.154319+00:00",
+    "block_hash": "43eda73f6ed232f8100b49a3858977d187799092216ab79e7ff74030f19df1b3"
+  },
+  {
+    "index": 18,
+    "filename": "illustration-anime-city.jpg",
+    "content_hash": "a460becd30cd121d9081641f4459f13083aa01967bd78a720941bbbbc755c48e",
+    "perceptual_hash": "003ebe5a58093c7c",
+    "ai_result": {
+      "deepfake_probability": 0.1571,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "None detected",
+      "ai_generated": false,
+      "timestamp": "2026-09-08T08:45:31.989525+00:00"
+    },
+    "previous_hash": "43eda73f6ed232f8100b49a3858977d187799092216ab79e7ff74030f19df1b3",
+    "recorded_at": "2026-09-08T08:45:32.014049+00:00",
+    "block_hash": "2b1d74c51af8fa4eddc5057bef73c1f5e3dae6aa4bf87b095e58e483137f93ed"
+  },
+  {
+    "index": 19,
+    "filename": "verity-video-test.mp4",
+    "content_hash": "621f6027d2c4295ed8d5045fc201382aa88f066f62ae21e4b1b6668df58320c4",
+    "perceptual_hash": "video-frame-analysis",
+    "ai_result": {
+      "deepfake_probability": 0.0,
+      "authenticity_flag": "Authentic",
+      "manipulation_type": "No strong manipulation indicators detected in sampled frames",
+      "ai_generated": false,
+      "media_type": "video",
+      "frames_analyzed": 5,
+      "duration_seconds": 1.0,
+      "timestamp": "2026-09-08T18:58:31.868430+00:00"
+    },
+    "previous_hash": "2b1d74c51af8fa4eddc5057bef73c1f5e3dae6aa4bf87b095e58e483137f93ed",
+    "recorded_at": "2026-09-08T18:58:31.868997+00:00",
+    "block_hash": "0f98ee9dfd534ac923bb17b5a9b820a3f7e71271e179292042fa7ce5f92783d2"
   }
 ]

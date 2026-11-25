@@ -1,0 +1,988 @@
+{
+  "contract_name": "VerityVerification",
+  "solc_version": "0.8.20",
+  "compiler_backend": "solcjs (0.8.20)",
+  "evm_version": "paris",
+  "source_path": "contracts/VerityVerification.sol",
+  "source_sha256": "2827f81569c763bc0b67bdc011aea9816266f1db946a8104a15594b0a29dcb9d",
+  "compiled_at": "2026-11-25T12:29:02.161790+00:00",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "CheckpointNotFound",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "eventKey",
+          "type": "bytes32"
+        }
+      ],
+      "name": "DuplicateVerificationEvent",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "field",
+          "type": "string"
+        }
+      ],
+      "name": "InvalidInput",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAuthorized",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "key",
+          "type": "bytes32"
+        }
+      ],
+      "name": "RecordNotFound",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "checkpointId",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "ledgerRootHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "recordCount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "lastSequenceNumber",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "submitter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "CheckpointRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "authorized",
+          "type": "bool"
+        }
+      ],
+      "name": "SubmitterAuthorizationChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "eventKey",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "verificationId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "mediaType",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "resultCategory",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "analysisConfigId",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes32",
+          "name": "recordHash",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "submitter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "VerificationRegistered",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "authorizedSubmitters",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "analysisConfigId",
+          "type": "string"
+        }
+      ],
+      "name": "computeEventKey",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getCheckpoint",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "checkpointId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "ledgerRootHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "recordCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastSequenceNumber",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "note",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.LedgerCheckpoint",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getCheckpointsCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getContentEventKeys",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "offset",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "limit",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEventKeysSlice",
+      "outputs": [
+        {
+          "internalType": "bytes32[]",
+          "name": "",
+          "type": "bytes32[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getLatestCheckpoint",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "checkpointId",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "ledgerRootHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "recordCount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastSequenceNumber",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "string",
+              "name": "note",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.LedgerCheckpoint",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getRecordsByContentHash",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "eventKey",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "contentSha256",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "perceptualFingerprint",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "verificationId",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "mediaType",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "resultCategory",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "analysisConfigId",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "recordHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "localSequence",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.VerificationRecord[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTotalRecords",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "verificationId",
+          "type": "string"
+        }
+      ],
+      "name": "getVerificationById",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "eventKey",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "contentSha256",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "perceptualFingerprint",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "verificationId",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "mediaType",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "resultCategory",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "analysisConfigId",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "recordHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "localSequence",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.VerificationRecord",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "eventKey",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getVerificationByKey",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "eventKey",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "contentSha256",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "perceptualFingerprint",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "verificationId",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "mediaType",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "resultCategory",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "analysisConfigId",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "recordHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "localSequence",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.VerificationRecord",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "analysisConfigId",
+          "type": "string"
+        }
+      ],
+      "name": "getVerificationEvent",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bytes32",
+              "name": "eventKey",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "contentSha256",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "string",
+              "name": "perceptualFingerprint",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "verificationId",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "mediaType",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "resultCategory",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "analysisConfigId",
+              "type": "string"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "recordHash",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint256",
+              "name": "localSequence",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "submitter",
+              "type": "address"
+            },
+            {
+              "internalType": "bool",
+              "name": "exists",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct VerityVerification.VerificationRecord",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "analysisConfigId",
+          "type": "string"
+        }
+      ],
+      "name": "hasVerificationEvent",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "latestAnchoredLedgerHash",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "latestCheckpointRecordCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "ledgerRootHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "recordCount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "lastSequenceNumber",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "note",
+          "type": "string"
+        }
+      ],
+      "name": "registerCheckpoint",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "checkpointId",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "string",
+          "name": "perceptualFingerprint",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "verificationId",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "mediaType",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "resultCategory",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "analysisConfigId",
+          "type": "string"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "recordHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "localSequence",
+          "type": "uint256"
+        }
+      ],
+      "name": "registerVerification",
+      "outputs": [
+        {
+          "internalType": "bytes32",
+          "name": "eventKey",
+          "type": "bytes32"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "account",
+          "type": "address"
+        },
+        {
+          "internalType": "bool",
+          "name": "authorized",
+          "type": "bool"
+        }
+      ],
+      "name": "setAuthorizedSubmitter",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "ledgerRootHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "verifyAnchoredLedgerHash",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "matched",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "checkpointId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "recordCount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "recordHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "verifyRecordHashOnChain",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "exists",
+          "type": "bool"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "eventKey",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "bytes32",
+          "name": "contentSha256",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "6080806040523461006d57600080546001600160a01b031916339081178255808252600160208181526040909320805460ff1916821790558352917f81d7bcc840ba1462447be41258f9713fc4c1aaa617d7fd0b19bf7fa4db6089b79190a260405161204990816100738239f35b600080fdfe608080604052600436101561001357600080fd5b60003560e01c9081630306c9141461183e575080630aeacb5e1461182057806320fc4881146117b85780632107bc241461169c5780632690dd0d146116555780632c39c1291461162757806335cac33d14610afc5780635197a0d314610a2657806351c4867b14610a0857806355f46844146109b25780635d297345146106125780637b5154fc146105785780637f6e9d4b14610539578063823982451461041357806384a4f148146103905780638da5cb5b14610367578063be33c94814610349578063caf3c2171461017f578063ce0a1b3314610161578063e4476d48146101295763f6f4217d1461010657600080fd5b34610124576000366003190112610124576020600954604051908152f35b600080fd5b34610124576020366003190112610124576080610147600435611fb3565b916040519315158452602084015260408301526060820152f35b34610124576000366003190112610124576020600a54604051908152f35b34610124576020806003193601126101245760043560005260038082526040600020908154906101ae82611d6f565b926101bc6040519485611afa565b828452601f196101cb84611d6f565b018560005b8281106103335750505060005b83811061024257604080518781528651818901819052600092600582901b8301810191898b01918b9085015b8287106102165785850386f35b909192938280610232600193603f198a820301865288516119ed565b9601920196019592919092610209565b8061025061032e9284611bd4565b905490851b1c600052600280885260ff60406000206102896040519361027585611ac2565b8254855260018301548c8601528201611c67565b6040840152610299878201611c67565b60608401526102aa60048201611c67565b6080840152600a6102bd60058301611c67565b9160a092838601526102d160068201611c67565b60c0860152600781015460e08601526008810154610100860152600981015461012086015201546001600160a01b038116610140850152901c16151561016082015261031d8288611d95565b526103288187611d95565b50611d86565b6101dd565b61033b611c0d565b8282890101520186906101d0565b34610124576020366003190112610124576080610147600435611d0d565b34610124576000366003190112610124576000546040516001600160a01b039091168152602090f35b34610124576000366003190112610124576103a9611f06565b5060075480156103fa5760001981019081116103e4576103d46103ce6103e092611ecc565b50611f45565b6040519182918261191f565b0390f35b634e487b7160e01b600052601160045260246000fd5b60405163115e4e5560e11b815260006004820152602490fd5b346101245760208060031936011261012457600435610430611c0d565b50806000526002825260ff600a6040600020015460a01c1615610521576000526002815260406000209060ff600a6040519361046b85611ac2565b8054855260018101548486015261048460028201611c67565b604086015261049560038201611c67565b60608601526104a660048201611c67565b60808601526104b760058201611c67565b60a08601526104c860068201611c67565b60c0860152600781015460e08601526008810154610100860152600981015461012086015201546001600160a01b03811661014085015260a01c1615156101608301526040518181529182916103e091908301906119ed565b602490604051906333853f3560e11b82526004820152fd5b34610124576020366003190112610124576001600160a01b0361055a611aac565b166000526001602052602060ff604060002054166040519015158152f35b3461012457602080600319360112610124576004356001600160401b038111610124576105aa8291369060040161198d565b91906105b4611c0d565b508260405193849283378101600481520301902054801580156105f4575b610521576000526002815260406000209060ff600a6040519361046b85611ac2565b50806000526002825260ff600a6040600020015460a01c16156105d2565b34610124576080366003190112610124576001600160401b036064358181116101245761064390369060040161198d565b6000546001600160a01b039190821633141580610999575b6109875760043515610950576024351561091c57600a546024351061091c57600754926001840184116103e4576040519161069583611ade565b60018501835260208301936004358552604084019260243584526060850160443581526106d2608087019242845260a08801953387523691611b1b565b9460c08701958652600160e0880152600160401b8910156108f057600189016007556106fd89611ecc565b9890986109065787518955516001890155516002880155516003870155516004860155600585019151166bffffffffffffffffffffffff60a01b825416179055519384519081116108f0576107556006840154611b9a565b94601f86116108a5575b602095508590601f831160011461082e57928260079360e0936107b49796600092610823575b50508160011b916000199060031b1c19161760068501555b0151151591019060ff801983541691151516179055565b6004356000526008825260018101604060002055600435600955602435600a556040516024358152604435838201524260408201523390600435907fdb6bcf6c315302a13abf57aedfbddface421c5faa815e14fbdd416518809e2cd60606001860192a4600160405191018152f35b015190508980610785565b9060068501600052866000209160005b601f198516811061088e57508360e0936107b4979693600193600797601f19811610610875575b505050811b01600685015561079d565b015160001960f88460031b161c19169055898080610865565b91928860018192868501518155019401920161083e565b600684016000526020600020601f830160051c810196602084106108e6575b601f0160051c01955b8681106108da575061075f565b600081556001016108cd565b90965086906108c4565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052600060045260246000fd5b60405163d647364f60e01b815260206004820152600b60248201526a1c9958dbdc9910dbdd5b9d60aa1b6044820152606490fd5b60405163d647364f60e01b815260206004820152600e60248201526d0d8cac8cecae4a4dedee890c2e6d60931b6044820152606490fd5b60405163ea8e4eb560e01b8152600490fd5b5033600052600160205260ff604060002054161561065b565b34610124576040366003190112610124576024356001600160401b038111610124573660238201121561012457610a006109f86020923690602481600401359101611b1b565b600435611b61565b604051908152f35b34610124576000366003190112610124576020600754604051908152f35b3461012457604036600319011261012457610a3f611aac565b6024359081151590818303610124576000546001600160a01b03919082163303610aea5716918215610aba577f81d7bcc840ba1462447be41258f9713fc4c1aaa617d7fd0b19bf7fa4db6089b791610ab1602092856000526001845260406000209060ff801983541691151516179055565b604051908152a2005b60405163d647364f60e01b81526020600482015260076024820152661858d8dbdd5b9d60ca1b6044820152606490fd5b6040516330cd747160e01b8152600490fd5b3461012457610100366003190112610124576024356001600160401b03811161012457610b2d90369060040161198d565b906044356001600160401b03811161012457610b4d90369060040161198d565b90926064356001600160401b03811161012457610b6e90369060040161198d565b9190946084356001600160401b03811161012457610b9090369060040161198d565b91906001600160401b0360a4351161012457610bb13660a43560040161198d565b93909460018060a01b03600054163314158061160e575b61098757600435156115d85760c435156115a557871561147557861561157357811561153c5784156115035780156114c557610c086109f8368789611b1b565b9889600052600260205260ff600a6040600020015460a01c166114ac57604051898682376020818b810160048152030190205461147557610c629060405192610c5084611ac2565b8b845260043560208501523691611b1b565b6040820152610c72368986611b1b565b6060820152610c8236888c611b1b565b6080820152610c92368385611b1b565b60a0820152610ca2368688611b1b565b60c082015260c43560e082015260e435610100820152426101208201523361014082015260016101608201528860005260026020526040600020815181556020820151600182015560408201518051906001600160401b0382116108f0578190610d0f6002850154611b9a565b601f8111611422575b50602090601f83116001146113b0576000926113a5575b50508160011b916000199060031b1c19161760028201555b60608201518051906001600160401b0382116108f0578190610d6c6003850154611b9a565b601f8111611352575b50602090601f83116001146112e0576000926112d5575b50508160011b916000199060031b1c19161760038201555b60808201518051906001600160401b0382116108f0578190610dc96004850154611b9a565b601f8111611282575b50602090601f831160011461121057600092611205575b50508160011b916000199060031b1c19161760048201555b60a08201518051906001600160401b0382116108f0578190610e266005850154611b9a565b601f81116111b2575b50602090601f831160011461114057600092611135575b50508160011b916000199060031b1c19161760058201555b60c08201518051906001600160401b0382116108f057610e816006840154611b9a565b601f81116110ee575b50602090601f831160011461107b57600a93929160009183611070575b50508160011b916000199060031b1c19161760068201555b60e0830151600782015561010083015160088201556101208301516009820155019060018060a01b036101408201511682549161016060ff60a01b910151151560a01b16916affffffffffffffffffffff60a81b1617179055600435600052600360205260406000208054600160401b8110156108f057610f4591600182018155611bd4565b81549060031b908a821b91600019901b191617905587604051888582376020818a810160048152030190205560c43560005260056020528760406000205560065492600160401b8410156108f057600184018060065584101561105a5760209961101897610fef610ffc938c61100a9860066000527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f01556040519b60c08d5260c08d0191611bec565b918a83038d8c0152611bec565b918783036040890152611bec565b918483036060860152611bec565b60c43560808301524260a0830152827f5aa8116dc2d946d37fda45bdb3c3c0d0ca92847bc6e884d71b87ee3a7633f69a339380600435940390a4604051908152f35b634e487b7160e01b600052603260045260246000fd5b015190508e80610ea7565b906006840160005260206000209160005b601f19851681106110d65750918391600193600a9695601f198116106110bd575b505050811b016006820155610ebf565b015160001960f88460031b161c191690558e80806110ad565b9192602060018192868501518155019401920161108c565b600684016000526020600020601f840160051c81016020851061112e575b601f830160051c82018110611122575050610e8a565b6000815560010161110c565b508061110c565b015190508d80610e46565b9250600584016000526020600020906000935b601f1984168510611197576001945083601f1981161061117e575b505050811b016005820155610e5e565b015160001960f88460031b161c191690558d808061116e565b81810151835560209485019460019093019290910190611153565b909150600584016000526020600020601f840160051c8101602085106111fe575b90849392915b601f830160051c820181106111ef575050610e2f565b600081558594506001016111d9565b50806111d3565b015190508d80610de9565b9250600484016000526020600020906000935b601f1984168510611267576001945083601f1981161061124e575b505050811b016004820155610e01565b015160001960f88460031b161c191690558d808061123e565b81810151835560209485019460019093019290910190611223565b909150600484016000526020600020601f840160051c8101602085106112ce575b90849392915b601f830160051c820181106112bf575050610dd2565b600081558594506001016112a9565b50806112a3565b015190508d80610d8c565b9250600384016000526020600020906000935b601f1984168510611337576001945083601f1981161061131e575b505050811b016003820155610da4565b015160001960f88460031b161c191690558d808061130e565b818101518355602094850194600190930192909101906112f3565b909150600384016000526020600020601f840160051c81016020851061139e575b90849392915b601f830160051c8201811061138f575050610d75565b60008155859450600101611379565b5080611373565b015190508d80610d2f565b9250600284016000526020600020906000935b601f1984168510611407576001945083601f198116106113ee575b505050811b016002820155610d47565b015160001960f88460031b161c191690558d80806113de565b818101518355602094850194600190930192909101906113c3565b909150600284016000526020600020601f840160051c81016020851061146e575b90849392915b601f830160051c8201811061145f575050610d18565b60008155859450600101611449565b5080611443565b60405163d647364f60e01b815260206004820152600e60248201526d1d995c9a599a58d85d1a5bdb925960921b6044820152606490fd5b6040516307681f5d60e01b8152600481018b9052602490fd5b60405163d647364f60e01b81526020600482015260156024820152741c195c98d95c1d1d585b119a5b99d95c9c1c9a5b9d605a1b6044820152606490fd5b60405163d647364f60e01b815260206004820152601060248201526f185b985b1e5cda5cd0dbdb999a59d25960821b6044820152606490fd5b60405163d647364f60e01b815260206004820152600e60248201526d726573756c7443617465676f727960901b6044820152606490fd5b60405163d647364f60e01b81526020600482015260096024820152686d656469615479706560b81b6044820152606490fd5b60405163d647364f60e01b815260206004820152600a6024820152690e4cac6dee4c890c2e6d60b31b6044820152606490fd5b60405163d647364f60e01b815260206004820152600d60248201526c31b7b73a32b73a29b430991a9b60991b6044820152606490fd5b5033600052600160205260ff6040600020541615610bc8565b34610124576040366003190112610124576103e0611649602435600435611db6565b604051918291826118a4565b3461012457611679611673611669366119ba565b9291923691611b1b565b90611b61565b6000526002602052602060ff600a6040600020015460a01c166040519015158152f35b34610124576116c36116736116b0366119ba565b6116bb939293611c0d565b503691611b1b565b80600052600260205260ff600a6040600020015460a01c16156105215760005260026020526103e0604060002060ff600a6040519261170184611ac2565b805484526001810154602085015261171b60028201611c67565b604085015261172c60038201611c67565b606085015261173d60048201611c67565b608085015261174e60058201611c67565b60a085015261175f60068201611c67565b60c0850152600781015460e08501526008810154610100850152600981015461012085015201546001600160a01b03811661014084015260a01c16151561016082015260405160208082529092839290918301906119ed565b34610124576020366003190112610124576004356117d4611f06565b5080158015611815575b6117fd5760001981019081116103e4576103d46103ce6103e092611ecc565b6024906040519063115e4e5560e11b82526004820152fd5b5060075481116117de565b34610124576000366003190112610124576020600654604051908152f35b346101245760209081600319360112610124576004356000526003825260406000209182548083528183019360005281600020916000905b82821061188d576103e08561164981890382611afa565b835486529485019460019384019390910190611876565b6020908160408183019282815285518094520193019160005b8281106118cb575050505090565b8351855293810193928101926001016118bd565b919082519283825260005b84811061190b575050826000602080949584010152601f8019910116010190565b6020818301810151848301820152016118ea565b6020815281516020820152602082015160408201526040820151606082015260608201516080820152608082015160a082015260018060a01b0360a08301511660c082015260c082015160e06119826101009283838601526101208501906118df565b930151151591015290565b9181601f84011215610124578235916001600160401b038311610124576020838186019501011161012457565b9060406003198301126101245760043591602435906001600160401b038211610124576119e99160040161198d565b9091565b908151815260208201516020820152611a69611a57611a45611a33611a2160408701516101808060408901528701906118df565b606087015186820360608801526118df565b608086015185820360808701526118df565b60a085015184820360a08601526118df565b60c084015183820360c08501526118df565b9160e081015160e08301526101008082015190830152610120808201519083015261014060018060a01b0381830151169083015261016080910151151591015290565b600435906001600160a01b038216820361012457565b61018081019081106001600160401b038211176108f057604052565b61010081019081106001600160401b038211176108f057604052565b90601f801991011681019081106001600160401b038211176108f057604052565b9291926001600160401b0382116108f05760405191611b44601f8201601f191660200184611afa565b829481845281830111610124578281602093846000960137010152565b90611b94611b86916040519283916020830195865260408084015260608301906118df565b03601f198101835282611afa565b51902090565b90600182811c92168015611bca575b6020831014611bb457565b634e487b7160e01b600052602260045260246000fd5b91607f1691611ba9565b805482101561105a5760005260206000200190600090565b908060209392818452848401376000828201840152601f01601f1916010190565b60405190611c1a82611ac2565b81610160600091828152826020820152606080604083015280808301528060808301528060a083015260c08201528260e08201528261010082015282610120820152826101408201520152565b9060405191826000825492611c7b84611b9a565b908184526001948581169081600014611cea5750600114611ca7575b5050611ca592500383611afa565b565b9093915060005260209081600020936000915b818310611cd2575050611ca593508201013880611c97565b85548884018501529485019487945091830191611cba565b915050611ca594506020925060ff191682840152151560051b8201013880611c97565b906000918252600560205260408220549182158015611d52575b611d4857828152600260205260409020600180820154600990920154909392565b8092509180918190565b50828152600260205260ff600a60408320015460a01c1615611d27565b6001600160401b0381116108f05760051b60200190565b60001981146103e45760010190565b805182101561105a5760209160051b010190565b919082018092116103e457565b600691825490818310801590611ec4575b611e9857611dd59083611da9565b90808211611e90575b8282039182116103e457611df182611d6f565b93611dff6040519586611afa565b828552601f19611e0e84611d6f565b01366020870137600093845b848110611e2a5750505050505090565b611e348183611da9565b84811015611e7c5790611e77918488527ff652222313e28459528d920b65115c16c04f3efc82aaedc97be59f3f377c0d3f0154611e71828a611d95565b52611d86565b611e1a565b634e487b7160e01b87526032600452602487fd5b905080611dde565b50505050604051602081018181106001600160401b038211176108f05760405260008152600036813790565b508015611dc7565b60075481101561105a57600760005260031b7fa66cc928b5edb82af9bd49922954155ab7b0942694bea4ce44661d9a8736c6880190600090565b60405190611f1382611ade565b8160e06000918281528260208201528260408201528260608201528260808201528260a0820152606060c08201520152565b90604051611f5281611ade565b60e060ff60078395805485526001810154602086015260028101546040860152600381015460608601526004810154608086015260018060a01b0360058201541660a0860152611fa460068201611c67565b60c08601520154161515910152565b600090815260086020526040812054908115612009576000198201918211611ff55750611fdf90611ecc565b5080546002820154600490920154600193919291565b634e487b7160e01b81526011600452602490fd5b918291508190819056fea264697066735822122011b1441501b951caa18db921eb0c375d36683e8be0f850c6cca1a034fc41cbab64736f6c63430008140033"
+}
