@@ -593,6 +593,39 @@ table.data-table tr:hover td {
   color: #fecdd3;
 }
 
+.notice-box.good {
+  background: var(--mint-soft);
+  border-color: rgba(34, 197, 94, 0.35);
+  color: #bbf7d0;
+}
+
+.advanced-box {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.advanced-box > summary {
+  cursor: pointer;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.plain-summary {
+  display: grid;
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  background: rgba(15, 28, 53, 0.9);
+  border: 1px solid var(--border-strong);
+  margin-bottom: 16px;
+  font-size: 13.5px;
+}
+
 .toast {
   position: fixed;
   right: 20px;

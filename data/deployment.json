@@ -1,15 +1,15 @@
 {
   "contract_name": "VerityVerification",
-  "contract_address": "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab",
+  "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
   "network_name": "Ganache Local",
   "rpc_url": "http://127.0.0.1:8545",
   "chain_id": 1337,
   "deployer_address": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
-  "deployment_tx_hash": "0x7358d92c4792689282c7388c6d1a84e3f3392b35d54e85c54f6f43bfe5ad01fe",
-  "deployment_block_number": 1,
+  "deployment_tx_hash": "0x3352b484f349b5bef4dc16194699dfcc574088db912688c175c6bfd9306894d6",
+  "deployment_block_number": 8,
   "gas_used": 1886040,
   "solc_version": "0.8.20",
   "compiler_backend": "solcjs (0.8.20)",
   "source_sha256": "2827f81569c763bc0b67bdc011aea9816266f1db946a8104a15594b0a29dcb9d",
-  "deployed_at": "2026-11-25T12:27:36.505959+00:00"
+  "deployed_at": "2026-11-25T13:23:24.936750+00:00"
 }

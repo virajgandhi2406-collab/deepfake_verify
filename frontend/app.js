@@ -1,7 +1,7 @@
 const API_BASE = window.location.origin;
 
 const state = {
-  page: location.hash.slice(1) || "dashboard",
+  page: location.hash.slice(1) || "verify",
   selectedFile: null,
   mediaKind: "image",
   lastResult: null,
@@ -216,23 +216,23 @@ async function renderDashboardView() {
   }
 }
 
-/* ==================== B & C. VERIFY CONTENT + RESULTS ==================== */
+/* ==================== B & C. VERIFY CONTENT + QUICK CHECK ==================== */
 function renderVerifyView() {
   const root = $("pageContent");
   root.innerHTML = `
     <div class="view-header">
       <div>
-        <div class="kicker">Three-Question Forensic Pipeline</div>
-        <h1>Verify Digital Media Content</h1>
-        <p class="view-sub">Separately evaluates manipulation evidence (heuristic indicators), exact/perceptual file identity, and blockchain-anchored record integrity.</p>
+        <div class="kicker">Simple 1-Step Media Verification</div>
+        <h1>Verify or Check Image &amp; Video</h1>
+        <p class="view-sub">Upload any image or video to check for manipulation, see if it was verified before, and save a tamper-evident record.</p>
       </div>
     </div>
 
     <div class="grid-2">
       <section class="panel">
         <div class="panel-head">
-          <h2>Media Upload &amp; Configuration</h2>
-          <div style="display:flex;gap:8px">
+          <h2>1. Upload Image or Video to Verify</h2>
+          <div style="display:flex;gap:8px" aria-label="Detected media type">
             <button type="button" class="btn ${state.mediaKind === "image" ? "primary" : ""}" id="modeImageBtn">Image</button>
             <button type="button" class="btn ${state.mediaKind === "video" ? "primary" : ""}" id="modeVideoBtn">Video</button>
           </div>
@@ -240,71 +240,89 @@ function renderVerifyView() {
 
         <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Upload image or video for verification">
           <div>
-            <h3 id="dropTitle">Drop ${state.mediaKind} file here or click to browse</h3>
-            <p id="dropHint" style="color:var(--text-muted);margin:6px 0">${
-              state.mediaKind === "image"
-                ? "Supported: JPG, JPEG, PNG, WEBP, BMP, TIFF (max 25 MB)"
-                : "Supported: MP4, MOV, AVI, MKV, WEBM (max 100 MB, samples up to 12 frames)"
-            }</p>
+            <h3 id="dropTitle">Drop any image or video here, or click to choose</h3>
+            <p id="dropHint" style="color:var(--text-muted);margin:6px 0">Images: JPG, PNG, WEBP, BMP, TIFF (max 25 MB) &bull; Videos: MP4, MOV, AVI, MKV, WEBM (max 100 MB)</p>
             <img id="imgPreview" class="preview-media" alt="Uploaded image preview">
             <video id="vidPreview" class="preview-media" controls></video>
           </div>
         </div>
 
-        <div class="form-grid">
-          <div class="field">
-            <label for="detectorVersionInput">Detector Version (for versioning / re-analysis)</label>
-            <input class="input mono" id="detectorVersionInput" placeholder="Default: active config (heuristic-v2.0.0)">
-          </div>
-          <div class="field">
-            <label for="configIdInput">Analysis Config ID</label>
-            <input class="input mono" id="configIdInput" placeholder="Default: cfg-2026.11-baseline">
-          </div>
-        </div>
-
         <div style="margin-top:16px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-          <button type="button" class="btn primary" id="runVerifyBtn" ${state.selectedFile ? "" : "disabled"}>Run Verification &amp; Anchor On-Chain</button>
+          <button type="button" class="btn primary" id="runVerifyBtn" ${state.selectedFile ? "" : "disabled"}>Verify Media Now</button>
           <button type="button" class="btn" id="clearFileBtn">Clear</button>
         </div>
 
+        <details class="advanced-box">
+          <summary>Advanced: Detector Version / Re-analysis Settings (Optional)</summary>
+          <div class="form-grid" style="margin-top:12px">
+            <div class="field">
+              <label for="detectorVersionInput">Detector Version</label>
+              <input class="input mono" id="detectorVersionInput" placeholder="Default: heuristic-v2.0.0">
+            </div>
+            <div class="field">
+              <label for="configIdInput">Analysis Config ID</label>
+              <input class="input mono" id="configIdInput" placeholder="Default: cfg-2026.11-baseline">
+            </div>
+          </div>
+        </details>
+
         <div id="verifyProgressWrap" style="display:none;margin-top:16px">
-          <div id="verifyStageText" style="font-size:12px;color:var(--blue-bright);margin-bottom:6px">Running forensic analysis...</div>
+          <div id="verifyStageText" style="font-size:12px;color:var(--blue-bright);margin-bottom:6px">Analyzing media...</div>
           <progress class="verity-progress" id="verifyProgress"></progress>
         </div>
       </section>
 
       <section class="panel">
-        <h2>Pipeline Safeguards &amp; Scope</h2>
-        <div class="kv-list" style="margin-top:12px">
-          <div class="kv-row"><span class="kv-key">1. Manipulation Analysis</span><span class="kv-val">Noise residual R = I − Gσ(I), 4×4 edge density, EXIF inspection</span></div>
-          <div class="kv-row"><span class="kv-key">2. Exact Identity</span><span class="kv-val">SHA-256 computed on raw bytes before decoding</span></div>
-          <div class="kv-row"><span class="kv-key">3. Visual Similarity</span><span class="kv-val">64-bit DCT perceptual hash + Hamming distance</span></div>
-          <div class="kv-row"><span class="kv-key">4. Re-analysis Rules</span><span class="kv-val">Same file + new detector version creates a new linked event</span></div>
-          <div class="kv-row"><span class="kv-key">5. Privacy</span><span class="kv-val">Temp uploads deleted immediately; raw media never stored on-chain</span></div>
+        <div class="panel-head">
+          <h2>2. Quick Check: Was This Already Verified?</h2>
         </div>
-        <div class="notice-box warn" style="margin-top:14px">
-          <strong>Interpretation Boundary:</strong> Heuristic scores are uncalibrated baseline indicators, not trained deep-learning probabilities. A blockchain record proves record existence/integrity, not that an original camera capture was truthful.
+        <p style="color:var(--text-muted);margin-top:4px">
+          Check if an image, video, SHA-256 hash, or Verification ID (<code>VRT-...</code>) already exists in VERITY without creating a new record.
+        </p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <button type="button" class="btn" id="quickCheckFileBtn">Choose File to Check (No Upload)</button>
         </div>
+
+        <div class="field" style="margin-top:14px">
+          <label for="quickCheckInput">Or paste Verification ID (VRT-...) or SHA-256 hash</label>
+          <div style="display:flex;gap:8px">
+            <input class="input mono" id="quickCheckInput" placeholder="e.g. VRT-0001-ABCD1234 or 64-char SHA-256">
+            <button type="button" class="btn primary" id="quickCheckBtn">Check</button>
+          </div>
+        </div>
+
+        <div id="quickCheckResult" style="margin-top:14px"></div>
       </section>
     </div>
 
     <div id="verificationResultArea">${state.lastResult ? renderResultHtml(state.lastResult) : ""}</div>
+
+    <details class="advanced-box">
+      <summary>How VERITY Works &amp; Interpretation Notes</summary>
+      <div class="kv-list" style="margin-top:10px">
+        <div class="kv-row"><span class="kv-key">1. Manipulation Check</span><span class="kv-val">Noise residual R = I &minus; G&sigma;(I), 4&times;4 edge density, EXIF inspection (samples up to 12 frames for videos)</span></div>
+        <div class="kv-row"><span class="kv-key">2. File Identity</span><span class="kv-val">Exact SHA-256 on raw bytes + 64-bit DCT perceptual hash for visual similarity</span></div>
+        <div class="kv-row"><span class="kv-key">3. Record Integrity</span><span class="kv-val">Saved in canonical local ledger and anchored on Ethereum/Ganache smart contract when connected</span></div>
+      </div>
+      <div class="notice-box warn" style="margin-top:12px">
+        <strong>Note:</strong> Heuristic scores are baseline forensic indicators, not absolute proof of manipulation. Blockchain anchoring proves record existence and tamper-evidence, not that an original camera capture was truthful.
+      </div>
+    </details>
   `;
 
   $("modeImageBtn").addEventListener("click", () => {
     state.mediaKind = "image";
-    state.selectedFile = null;
     renderVerifyView();
   });
   $("modeVideoBtn").addEventListener("click", () => {
     state.mediaKind = "video";
-    state.selectedFile = null;
     renderVerifyView();
   });
 
   const fileInput = $("fileInput");
   const dropzone = $("dropzone");
-  fileInput.accept = state.mediaKind === "image" ? "image/*" : "video/*";
+  fileInput.accept = "image/*,video/*";
 
   dropzone.addEventListener("click", () => fileInput.click());
   dropzone.addEventListener("keydown", (e) => {
@@ -334,23 +352,80 @@ function renderVerifyView() {
   });
   $("runVerifyBtn").addEventListener("click", executeVerification);
 
+  const checkFileInput = $("checkFileInput");
+  $("quickCheckFileBtn").addEventListener("click", () => checkFileInput.click());
+  checkFileInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const out = $("quickCheckResult");
+    out.innerHTML = `<div class="notice-box">Computing SHA-256 locally in browser for <strong>${escapeHtml(file.name)}</strong>...</div>`;
+    try {
+      const buf = await file.arrayBuffer();
+      const digest = await crypto.subtle.digest("SHA-256", buf);
+      const hex = Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+      $("quickCheckInput").value = hex;
+      await runQuickCheck(hex);
+    } catch (err) {
+      out.innerHTML = `<div class="notice-box risk">Failed to hash file: ${escapeHtml(err.message)}</div>`;
+    } finally {
+      checkFileInput.value = "";
+    }
+  };
+  $("quickCheckBtn").addEventListener("click", () => {
+    const val = $("quickCheckInput").value.trim();
+    if (val) runQuickCheck(val);
+    else showToast("Please select a file or enter a Verification ID / SHA-256 hash.");
+  });
+
+  if (state.selectedFile) {
+    showSelectedFilePreview(state.selectedFile);
+  }
   if (state.lastResult) bindResultActions(state.lastResult);
 }
 
-function handleSelectedFile(file) {
-  const isImg = file.type.startsWith("image/") || /\.(jpg|jpeg|png|webp|bmp|tif|tiff)$/i.test(file.name);
-  const isVid = file.type.startsWith("video/") || /\.(mp4|mov|avi|mkv|webm)$/i.test(file.name);
-  if (state.mediaKind === "image" && !isImg) {
-    showToast("Please select a valid image file (or switch mode to Video).");
-    return;
+async function runQuickCheck(query) {
+  const out = $("quickCheckResult");
+  const cleaned = query.trim();
+  out.innerHTML = `<div class="notice-box">Checking VERITY records...</div>`;
+  try {
+    if (/^VRT-/i.test(cleaned)) {
+      const res = await fetchJson(`/verify-certificate/${encodeURIComponent(cleaned)}?format=json`);
+      const cert = res.certificate || {};
+      const verdict = cert.verdict || res.on_chain_record?.result_category || "N/A";
+      out.innerHTML = `
+        <div class="notice-box good">
+          <strong>Record Found (${escapeHtml(cleaned)})</strong><br>
+          Verdict: ${verdictPill(verdict)} &bull; On-Chain: <strong>${res.on_chain_record_found ? "Yes" : "Local Only"}</strong>
+          <div style="margin-top:8px;display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn primary" href="/certificate/${encodeURIComponent(cleaned)}" target="_blank" rel="noopener">Download PDF</a>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    const res = await fetchJson(`/check/${encodeURIComponent(cleaned)}`);
+    const bc = res.blockchain || {};
+    out.innerHTML = `
+      <div class="notice-box good">
+        <strong>Exact Match Found!</strong> This file was already verified.<br>
+        ID: <code class="mono">${escapeHtml(res.verification_id || "On-Chain")}</code> &bull; Verdict: ${verdictPill(res.verdict || res.on_chain_records?.[0]?.result_category)}<br>
+        Blockchain: ${anchorPill(bc.anchoring_status || (res.on_chain_records?.length ? "anchored" : "local_only"))}
+        ${res.verification_id ? `<div style="margin-top:8px"><a class="btn primary" href="/certificate/${encodeURIComponent(res.verification_id)}" target="_blank" rel="noopener">Download PDF Certificate</a></div>` : ""}
+      </div>
+    `;
+  } catch (err) {
+    if (String(err.message).includes("No verification record") || String(err.message).includes("not found")) {
+      out.innerHTML = `<div class="notice-box warn"><strong>Not Found:</strong> No existing verification record matches this file/hash yet. Use <strong>Verify Media Now</strong> on the left to analyze and record it.</div>`;
+    } else {
+      out.innerHTML = `<div class="notice-box risk">${escapeHtml(err.message)}</div>`;
+    }
   }
-  if (state.mediaKind === "video" && !isVid) {
-    showToast("Please select a valid video file (or switch mode to Image).");
-    return;
-  }
-  state.selectedFile = file;
-  $("dropTitle").textContent = file.name;
-  $("dropHint").textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB ready for verification`;
+}
+
+function showSelectedFilePreview(file) {
+  $("dropTitle").textContent = `${file.name} (${state.mediaKind.toUpperCase()})`;
+  $("dropHint").textContent = `${(file.size / (1024 * 1024)).toFixed(2)} MB ready to verify`;
   const url = URL.createObjectURL(file);
   if (state.mediaKind === "image") {
     $("imgPreview").src = url;
@@ -362,6 +437,20 @@ function handleSelectedFile(file) {
     $("imgPreview").style.display = "none";
   }
   $("runVerifyBtn").disabled = false;
+}
+
+function handleSelectedFile(file) {
+  const isImg = file.type.startsWith("image/") || /\.(jpg|jpeg|png|webp|bmp|tif|tiff)$/i.test(file.name);
+  const isVid = file.type.startsWith("video/") || /\.(mp4|mov|avi|mkv|webm)$/i.test(file.name);
+  if (!isImg && !isVid) {
+    showToast("Unsupported file type. Please choose an image (JPG, PNG, WEBP) or video (MP4, MOV, AVI, MKV, WEBM).");
+    return;
+  }
+  state.mediaKind = isVid ? "video" : "image";
+  $("modeImageBtn").classList.toggle("primary", state.mediaKind === "image");
+  $("modeVideoBtn").classList.toggle("primary", state.mediaKind === "video");
+  state.selectedFile = file;
+  showSelectedFilePreview(file);
 }
 
 async function executeVerification() {
@@ -400,6 +489,20 @@ async function executeVerification() {
   }
 }
 
+function explainVerdictPlain(verdict, scoreVal) {
+  const v = String(verdict || "Inconclusive");
+  if (v === "Low Evidence" || v === "Authentic") {
+    return `Low Evidence (score ${scoreVal}) — No strong manipulation signals were detected by the baseline checks.`;
+  }
+  if (v === "Review Required" || v === "Potentially Manipulated") {
+    return `Review Required (score ${scoreVal}) — Some visual anomalies were found; manual inspection is recommended.`;
+  }
+  if (v === "Elevated Evidence of Manipulation" || v === "Manipulated" || v === "AI-Generated") {
+    return `Elevated Evidence (score ${scoreVal}) — Strong manipulation or AI-generation indicators were detected.`;
+  }
+  return `${v} (score ${scoreVal}) — Unable to reach a clear forensic conclusion.`;
+}
+
 function renderResultHtml(cert) {
   const bc = cert.blockchain || {};
   const ind = cert.analysis_indicators || {};
@@ -409,12 +512,16 @@ function renderResultHtml(cert) {
   const sim = cert.similarity_matches || [];
   const timings = cert.timings_ms || {};
   const scoreVal = typeof cert.heuristic_score === "number" ? cert.heuristic_score.toFixed(4) : "N/A";
+  const bcSummary =
+    bc.anchoring_status === "anchored" || bc.anchoring_status === "already_anchored"
+      ? `Saved locally and anchored on blockchain (Block #${bc.block_number ?? "confirmed"}).`
+      : "Saved in the local tamper-evident ledger (blockchain node offline).";
 
   return `
     <section class="panel" aria-live="polite">
       <div class="panel-head">
         <div>
-          <div class="kicker">Verification Certificate Result</div>
+          <div class="kicker">Verification Result</div>
           <h2>${escapeHtml(cert.verification_id)} — ${verdictPill(cert.verdict)}</h2>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -422,6 +529,12 @@ function renderResultHtml(cert) {
           <button type="button" class="btn" id="verifyCertEndpointBtn">Verify Endpoint</button>
           ${bc.tx_hash ? `<button type="button" class="btn" id="inspectResultTxBtn">Inspect EVM Tx</button>` : ""}
         </div>
+      </div>
+
+      <div class="plain-summary">
+        <div><strong>1. Manipulation Check:</strong> ${escapeHtml(explainVerdictPlain(cert.verdict, scoreVal))}</div>
+        <div><strong>2. File History Check:</strong> ${escapeHtml(cert.hash_status || "New registration")}${sim.length ? ` (${sim.length} visually similar file(s) found)` : ""}</div>
+        <div><strong>3. Record &amp; Blockchain:</strong> ${escapeHtml(bcSummary)}</div>
       </div>
 
       <div class="grid-3">
@@ -939,7 +1052,7 @@ document.querySelectorAll(".nav-btn[data-page]").forEach((btn) => {
 });
 
 window.addEventListener("hashchange", () => {
-  state.page = location.hash.slice(1) || "dashboard";
+  state.page = location.hash.slice(1) || "verify";
   renderCurrentPage();
 });
 

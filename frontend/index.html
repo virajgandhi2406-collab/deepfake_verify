@@ -37,8 +37,8 @@
         <div class="nav-group-label">Verification Operations</div>
         <nav aria-label="Primary navigation">
           <ul class="nav-list">
-            <li><button type="button" class="nav-btn active" data-page="dashboard">Dashboard</button></li>
-            <li><button type="button" class="nav-btn" data-page="verify">Verify Content</button></li>
+            <li><button type="button" class="nav-btn active" data-page="verify">Verify &amp; Check Media</button></li>
+            <li><button type="button" class="nav-btn" data-page="dashboard">Dashboard</button></li>
             <li><button type="button" class="nav-btn" data-page="explorer">Blockchain Explorer</button></li>
             <li><button type="button" class="nav-btn" data-page="history">Verification History</button></li>
             <li><button type="button" class="nav-btn" data-page="integrity">Integrity Verification</button></li>
@@ -75,7 +75,8 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <input type="file" id="fileInput" hidden>
+  <input type="file" id="fileInput" accept="image/*,video/*" hidden>
+  <input type="file" id="checkFileInput" accept="image/*,video/*" hidden>
 
   <script src="/app.js"></script>
 </body>
