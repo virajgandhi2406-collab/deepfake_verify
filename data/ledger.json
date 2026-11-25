@@ -22,7 +22,7 @@
     "ai_result": {
       "deepfake_probability": 0.5498,
       "authenticity_flag": "Potentially Manipulated",
-      "manipulation_type": "Uncertain \u2014 possible compression or partial edit",
+      "manipulation_type": "Uncertain — possible compression or partial edit",
       "timestamp": "2026-09-05T09:04:59.116038+00:00"
     },
     "previous_hash": "68a3853f49244c785b2b6a92a2e5b8aa0f46ab7ac44cfa5209811076bc8c7d18",
@@ -97,7 +97,7 @@
     "ai_result": {
       "deepfake_probability": 0.5314,
       "authenticity_flag": "Potentially Manipulated",
-      "manipulation_type": "Uncertain \u2014 possible compression or partial edit",
+      "manipulation_type": "Uncertain — possible compression or partial edit",
       "timestamp": "2026-09-05T09:06:40.423898+00:00"
     },
     "previous_hash": "3980851ce88d8d5424290f46e09cf6c86bec529fc8f230a1aedee14544a96868",
@@ -317,5 +317,1327 @@
     "previous_hash": "2b1d74c51af8fa4eddc5057bef73c1f5e3dae6aa4bf87b095e58e483137f93ed",
     "recorded_at": "2026-09-08T18:58:31.868997+00:00",
     "block_hash": "0f98ee9dfd534ac923bb17b5a9b820a3f7e71271e179292042fa7ce5f92783d2"
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0020-16479091",
+    "sequence_number": 20,
+    "index": 20,
+    "filename": "illustration-anime-city.jpg",
+    "content_sha256": "a460becd30cd121d9081641f4459f13083aa01967bd78a720941bbbbc755c48e",
+    "content_hash": "a460becd30cd121d9081641f4459f13083aa01967bd78a720941bbbbc755c48e",
+    "media_type": "image",
+    "file_size_bytes": 12936026,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "99b7462a709d2676"
+    },
+    "perceptual_hash": "99b7462a709d2676",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 9.4682,
+        "residual_mean_abs": 4.5797,
+        "residual_p95_abs": 20.5424,
+        "regional_noise_cv": 0.2711
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0553,
+        "edge_density_std": 0.0214,
+        "edge_density_cv": 0.3858
+      },
+      "consistency": {
+        "block_boundary_ratio": 0.9851,
+        "channel_noise_spread": 0.4472
+      },
+      "subscores": {
+        "noise_residual_component": 0.3382,
+        "regional_noise_variance_component": 0.2259,
+        "regional_edge_variance_component": 0.1529,
+        "block_consistency_component": 0.0,
+        "channel_spread_component": 0.1118,
+        "visual_heuristic_score": 0.2073
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.2073,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:28:11.177981+00:00",
+    "recorded_at": "2026-11-25T13:28:11.177981+00:00",
+    "previous_hash": "0f98ee9dfd534ac923bb17b5a9b820a3f7e71271e179292042fa7ce5f92783d2",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.2073,
+      "deepfake_probability": 0.2073,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 5248,
+        "height": 3712
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 9.4682,
+          "residual_mean_abs": 4.5797,
+          "residual_p95_abs": 20.5424,
+          "regional_noise_cv": 0.2711
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0553,
+          "edge_density_std": 0.0214,
+          "edge_density_cv": 0.3858
+        },
+        "consistency": {
+          "block_boundary_ratio": 0.9851,
+          "channel_noise_spread": 0.4472
+        },
+        "subscores": {
+          "noise_residual_component": 0.3382,
+          "regional_noise_variance_component": 0.2259,
+          "regional_edge_variance_component": 0.1529,
+          "block_consistency_component": 0.0,
+          "channel_spread_component": 0.1118,
+          "visual_heuristic_score": 0.2073
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 2131.33,
+      "timestamp": "2026-11-25T13:28:11.177981+00:00",
+      "decode_time_ms": 321.7
+    },
+    "record_hash": "fcf69cfadcc742e5374d526a4f39aac8efa173fc47684ae1e5d09f38aee4e8bf",
+    "block_hash": "fcf69cfadcc742e5374d526a4f39aac8efa173fc47684ae1e5d09f38aee4e8bf",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0x52b7ee0a426151d1c5e73bc8b7a710788e066a86e6b77283b4fe8805e7b303de",
+      "block_number": 16,
+      "block_hash": "0x835dddd49fd24e7738b2ef3117985c4a04c150f332e7253efeb093916d3df712",
+      "block_timestamp": "2026-11-25T13:28:11+00:00",
+      "gas_used": 461215,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0x4685006d0b5e288c6fd429022c214fefd8541ca4e5974b153cb261b7cabbc627",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0021-40A95853",
+    "sequence_number": 21,
+    "index": 21,
+    "filename": "The Iconic 4 wallpapers 🙌🏻 digital_fremess _._._._ Hindu God • Wallpepar Vibes• ❤️_ Next Wallpepar comment Karo Gusy 🫡_ ._._._._Follow More(.jpg",
+    "content_sha256": "f960844e0198881692417048e9b760c60fa5869446ad5e1aa4b9e6a08aa41bbf",
+    "content_hash": "f960844e0198881692417048e9b760c60fa5869446ad5e1aa4b9e6a08aa41bbf",
+    "media_type": "image",
+    "file_size_bytes": 349933,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "99646996266dca9e"
+    },
+    "perceptual_hash": "99646996266dca9e",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 10.868,
+        "residual_mean_abs": 3.9728,
+        "residual_p95_abs": 20.2959,
+        "regional_noise_cv": 0.6227
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0491,
+        "edge_density_std": 0.0419,
+        "edge_density_cv": 0.8518
+      },
+      "consistency": {
+        "block_boundary_ratio": 1.0643,
+        "channel_noise_spread": 0.1409
+      },
+      "subscores": {
+        "noise_residual_component": 0.3881,
+        "regional_noise_variance_component": 0.5189,
+        "regional_edge_variance_component": 0.2993,
+        "block_consistency_component": 0.0804,
+        "channel_spread_component": 0.0352,
+        "visual_heuristic_score": 0.3326
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.3326,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:28:32.425955+00:00",
+    "recorded_at": "2026-11-25T13:28:32.425955+00:00",
+    "previous_hash": "fcf69cfadcc742e5374d526a4f39aac8efa173fc47684ae1e5d09f38aee4e8bf",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.3326,
+      "deepfake_probability": 0.3326,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 941,
+        "height": 1672
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 10.868,
+          "residual_mean_abs": 3.9728,
+          "residual_p95_abs": 20.2959,
+          "regional_noise_cv": 0.6227
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0491,
+          "edge_density_std": 0.0419,
+          "edge_density_cv": 0.8518
+        },
+        "consistency": {
+          "block_boundary_ratio": 1.0643,
+          "channel_noise_spread": 0.1409
+        },
+        "subscores": {
+          "noise_residual_component": 0.3881,
+          "regional_noise_variance_component": 0.5189,
+          "regional_edge_variance_component": 0.2993,
+          "block_consistency_component": 0.0804,
+          "channel_spread_component": 0.0352,
+          "visual_heuristic_score": 0.3326
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 128.74,
+      "timestamp": "2026-11-25T13:28:32.425955+00:00",
+      "decode_time_ms": 43.45
+    },
+    "record_hash": "04e96a5695553e0ac47a370ef894402fd8df4e17886272884291206e00c51274",
+    "block_hash": "04e96a5695553e0ac47a370ef894402fd8df4e17886272884291206e00c51274",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0xdb4dfaaaa87dcdaecd34cb3ad2adc1cc4f2523d2b225f1e865bb769e6580fd31",
+      "block_number": 17,
+      "block_hash": "0x694f82f428a94000dda58a7ac5b2614f92327e33d2736aa1f444195874110cde",
+      "block_timestamp": "2026-11-25T13:28:32+00:00",
+      "gas_used": 444103,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0x7d25f661c059bcfc899dd25b39e6a189aab71df15087e7352553ae1d00c81c86",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0022-5E35C749",
+    "sequence_number": 22,
+    "index": 22,
+    "filename": "ChatGPT Image Sep 5, 2026, 02_46_10 PM.png",
+    "content_sha256": "23537189f259aad0e7ff13245fbbeecd4199fadb9ad8bdbf8f5dcfe918f92ef8",
+    "content_hash": "23537189f259aad0e7ff13245fbbeecd4199fadb9ad8bdbf8f5dcfe918f92ef8",
+    "media_type": "image",
+    "file_size_bytes": 1921921,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "f1809676b1c9aecc"
+    },
+    "perceptual_hash": "f1809676b1c9aecc",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 6.5889,
+        "residual_mean_abs": 2.7489,
+        "residual_p95_abs": 11.3324,
+        "regional_noise_cv": 0.3657
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0233,
+        "edge_density_std": 0.0173,
+        "edge_density_cv": 0.7413
+      },
+      "consistency": {
+        "block_boundary_ratio": 0.9826,
+        "channel_noise_spread": 0.1185
+      },
+      "subscores": {
+        "noise_residual_component": 0.2353,
+        "regional_noise_variance_component": 0.3048,
+        "regional_edge_variance_component": 0.1236,
+        "block_consistency_component": 0.0,
+        "channel_spread_component": 0.0296,
+        "visual_heuristic_score": 0.1806
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": true,
+        "weak_filename_markers": [
+          "chatgpt"
+        ]
+      }
+    },
+    "heuristic_score": 0.1806,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:29:05.101324+00:00",
+    "recorded_at": "2026-11-25T13:29:05.101324+00:00",
+    "previous_hash": "04e96a5695553e0ac47a370ef894402fd8df4e17886272884291206e00c51274",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.1806,
+      "deepfake_probability": 0.1806,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Visual heuristic score computed; weak generator keyword observed in filename (contextual note only, not proof).",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 1145,
+        "height": 1374
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 6.5889,
+          "residual_mean_abs": 2.7489,
+          "residual_p95_abs": 11.3324,
+          "regional_noise_cv": 0.3657
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0233,
+          "edge_density_std": 0.0173,
+          "edge_density_cv": 0.7413
+        },
+        "consistency": {
+          "block_boundary_ratio": 0.9826,
+          "channel_noise_spread": 0.1185
+        },
+        "subscores": {
+          "noise_residual_component": 0.2353,
+          "regional_noise_variance_component": 0.3048,
+          "regional_edge_variance_component": 0.1236,
+          "block_consistency_component": 0.0,
+          "channel_spread_component": 0.0296,
+          "visual_heuristic_score": 0.1806
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": true,
+          "weak_filename_markers": [
+            "chatgpt"
+          ]
+        }
+      },
+      "analysis_time_ms": 127.05,
+      "timestamp": "2026-11-25T13:29:05.101324+00:00",
+      "decode_time_ms": 48.14
+    },
+    "record_hash": "76ec614f343af135f262a03a693601f399c4f5fcb2baf2fd653d5484b739adea",
+    "block_hash": "76ec614f343af135f262a03a693601f399c4f5fcb2baf2fd653d5484b739adea",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0x5a2b5f63393fafffba5997ec81d0761c5d472c3ddfbc0728426e387fd9923493",
+      "block_number": 18,
+      "block_hash": "0xaa7629100e0986232265758bd7351b386bc259e14bf6c11d7fa42061c1626f5f",
+      "block_timestamp": "2026-11-25T13:29:05+00:00",
+      "gas_used": 444115,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0xedf4218c27e466e7089dfac835f4a99ec348d16e5812d617c034c0718df89612",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0023-69F543B8",
+    "sequence_number": 23,
+    "index": 23,
+    "filename": "1000480377.png",
+    "content_sha256": "256e2f4b42d44bd7250da0d74569b7d27a1ae3992bfe0ce8578e87c0035cc554",
+    "content_hash": "256e2f4b42d44bd7250da0d74569b7d27a1ae3992bfe0ce8578e87c0035cc554",
+    "media_type": "image",
+    "file_size_bytes": 1109901,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "c0e02f2b1e9e1b6b"
+    },
+    "perceptual_hash": "c0e02f2b1e9e1b6b",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 17.4203,
+        "residual_mean_abs": 5.7352,
+        "residual_p95_abs": 43.3382,
+        "regional_noise_cv": 0.2447
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0275,
+        "edge_density_std": 0.01,
+        "edge_density_cv": 0.3618
+      },
+      "consistency": {
+        "block_boundary_ratio": 0.9051,
+        "channel_noise_spread": 1.295
+      },
+      "subscores": {
+        "noise_residual_component": 0.6222,
+        "regional_noise_variance_component": 0.2039,
+        "regional_edge_variance_component": 0.0714,
+        "block_consistency_component": 0.0,
+        "channel_spread_component": 0.3237,
+        "visual_heuristic_score": 0.2879
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.2879,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:29:51.557245+00:00",
+    "recorded_at": "2026-11-25T13:29:51.557245+00:00",
+    "previous_hash": "76ec614f343af135f262a03a693601f399c4f5fcb2baf2fd653d5484b739adea",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.2879,
+      "deepfake_probability": 0.2879,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 846,
+        "height": 1860
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 17.4203,
+          "residual_mean_abs": 5.7352,
+          "residual_p95_abs": 43.3382,
+          "regional_noise_cv": 0.2447
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0275,
+          "edge_density_std": 0.01,
+          "edge_density_cv": 0.3618
+        },
+        "consistency": {
+          "block_boundary_ratio": 0.9051,
+          "channel_noise_spread": 1.295
+        },
+        "subscores": {
+          "noise_residual_component": 0.6222,
+          "regional_noise_variance_component": 0.2039,
+          "regional_edge_variance_component": 0.0714,
+          "block_consistency_component": 0.0,
+          "channel_spread_component": 0.3237,
+          "visual_heuristic_score": 0.2879
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 151.23,
+      "timestamp": "2026-11-25T13:29:51.557245+00:00",
+      "decode_time_ms": 35.63
+    },
+    "record_hash": "a70cbdf15893f77f0aaed49baf1c78c88b82599c5c9e3b6e4efe6a4b3d61508b",
+    "block_hash": "a70cbdf15893f77f0aaed49baf1c78c88b82599c5c9e3b6e4efe6a4b3d61508b",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0x145d3f282be77754492589dcf31082a9eada89d43ae760265f0041624c050ece",
+      "block_number": 19,
+      "block_hash": "0x9e871bf7f65de8ac14f4cc0d12cb5cffd67bd11d977b0630136122f4ed543c89",
+      "block_timestamp": "2026-11-25T13:29:51+00:00",
+      "gas_used": 444115,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0xed7401aef1abfdfaeaaaa1933c5fa67a8754bec1109e8453713945a111034f2c",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0024-FA410A05",
+    "sequence_number": 24,
+    "index": 24,
+    "filename": "Cybersecurity Command Centre Wallpaper.png",
+    "content_sha256": "b47fffb60e6012dc5ca23a9bd94f3d4660d6dd30da8f84005191aa3df74f57aa",
+    "content_hash": "b47fffb60e6012dc5ca23a9bd94f3d4660d6dd30da8f84005191aa3df74f57aa",
+    "media_type": "image",
+    "file_size_bytes": 373268,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "cc993366ce993193"
+    },
+    "perceptual_hash": "cc993366ce993193",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 4.2874,
+        "residual_mean_abs": 0.5169,
+        "residual_p95_abs": 0.8609,
+        "regional_noise_cv": 1.6394
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.004,
+        "edge_density_std": 0.0075,
+        "edge_density_cv": 1.8469
+      },
+      "consistency": {
+        "block_boundary_ratio": 1.07,
+        "channel_noise_spread": 0.6095
+      },
+      "subscores": {
+        "noise_residual_component": 0.1531,
+        "regional_noise_variance_component": 1.0,
+        "regional_edge_variance_component": 0.0536,
+        "block_consistency_component": 0.0875,
+        "channel_spread_component": 0.1524,
+        "visual_heuristic_score": 0.3333
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.3333,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:31:32.384730+00:00",
+    "recorded_at": "2026-11-25T13:31:32.384730+00:00",
+    "previous_hash": "a70cbdf15893f77f0aaed49baf1c78c88b82599c5c9e3b6e4efe6a4b3d61508b",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.3333,
+      "deepfake_probability": 0.3333,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 4.2874,
+          "residual_mean_abs": 0.5169,
+          "residual_p95_abs": 0.8609,
+          "regional_noise_cv": 1.6394
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.004,
+          "edge_density_std": 0.0075,
+          "edge_density_cv": 1.8469
+        },
+        "consistency": {
+          "block_boundary_ratio": 1.07,
+          "channel_noise_spread": 0.6095
+        },
+        "subscores": {
+          "noise_residual_component": 0.1531,
+          "regional_noise_variance_component": 1.0,
+          "regional_edge_variance_component": 0.0536,
+          "block_consistency_component": 0.0875,
+          "channel_spread_component": 0.1524,
+          "visual_heuristic_score": 0.3333
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 162.91,
+      "timestamp": "2026-11-25T13:31:32.384730+00:00",
+      "decode_time_ms": 44.66
+    },
+    "record_hash": "5b662f8f350450699a7c08a40d851d00ebdbef4dd3b5abc9a5680aaaa3827479",
+    "block_hash": "5b662f8f350450699a7c08a40d851d00ebdbef4dd3b5abc9a5680aaaa3827479",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0xd658f4666c1636994d60c4193360ede12da11cc2224bf3eee117bd5619ed3b76",
+      "block_number": 20,
+      "block_hash": "0xcc2f0bcdfe9774799c00f054f8a341ac34c694e18eae72f7f11cfa5b9b8ab4c4",
+      "block_timestamp": "2026-11-25T13:31:32+00:00",
+      "gas_used": 444091,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0xf01650a10396f8e71ec1133f5569fa43a2173f4ce63087d3d8dce00533e5e4e8",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0025-B6FDC5D2",
+    "sequence_number": 25,
+    "index": 25,
+    "filename": "1000480407.png",
+    "content_sha256": "24e8c77541adee6e66f2e7b53ad38a95f4b56a63d8e3373a57d3dfea002ba26e",
+    "content_hash": "24e8c77541adee6e66f2e7b53ad38a95f4b56a63d8e3373a57d3dfea002ba26e",
+    "media_type": "image",
+    "file_size_bytes": 1307188,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "c01764e1b36f9fc0"
+    },
+    "perceptual_hash": "c01764e1b36f9fc0",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 17.3408,
+        "residual_mean_abs": 5.0838,
+        "residual_p95_abs": 39.6618,
+        "regional_noise_cv": 0.2812
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0214,
+        "edge_density_std": 0.0117,
+        "edge_density_cv": 0.5419
+      },
+      "consistency": {
+        "block_boundary_ratio": 0.994,
+        "channel_noise_spread": 0.2343
+      },
+      "subscores": {
+        "noise_residual_component": 0.6193,
+        "regional_noise_variance_component": 0.2343,
+        "regional_edge_variance_component": 0.0836,
+        "block_consistency_component": 0.0,
+        "channel_spread_component": 0.0586,
+        "visual_heuristic_score": 0.2711
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.2711,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:39:37.026097+00:00",
+    "recorded_at": "2026-11-25T13:39:37.026097+00:00",
+    "previous_hash": "5b662f8f350450699a7c08a40d851d00ebdbef4dd3b5abc9a5680aaaa3827479",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.2711,
+      "deepfake_probability": 0.2711,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 845,
+        "height": 1860
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 17.3408,
+          "residual_mean_abs": 5.0838,
+          "residual_p95_abs": 39.6618,
+          "regional_noise_cv": 0.2812
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0214,
+          "edge_density_std": 0.0117,
+          "edge_density_cv": 0.5419
+        },
+        "consistency": {
+          "block_boundary_ratio": 0.994,
+          "channel_noise_spread": 0.2343
+        },
+        "subscores": {
+          "noise_residual_component": 0.6193,
+          "regional_noise_variance_component": 0.2343,
+          "regional_edge_variance_component": 0.0836,
+          "block_consistency_component": 0.0,
+          "channel_spread_component": 0.0586,
+          "visual_heuristic_score": 0.2711
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 176.49,
+      "timestamp": "2026-11-25T13:39:37.026097+00:00",
+      "decode_time_ms": 47.49
+    },
+    "record_hash": "1d6b4c1606d40163e441941445e7229b0468bbb8c46b42563a37b8b28e3a122f",
+    "block_hash": "1d6b4c1606d40163e441941445e7229b0468bbb8c46b42563a37b8b28e3a122f",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0x8eb7e618caa10f23c498d9b65644a87406c5d8a86d833cbe121a4bcc17512ce6",
+      "block_number": 22,
+      "block_hash": "0x14a2d79eb36d3b99424d3b771e809c4cb47f218395d006e8f35a414a3846c701",
+      "block_timestamp": "2026-11-25T13:39:37+00:00",
+      "gas_used": 444103,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0x552c27126aa93ed0e5354d6fd007da3c7353a2d739fabeaf764bc923b2846ff6",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0026-B3A14243",
+    "sequence_number": 26,
+    "index": 26,
+    "filename": "Moody Hacker Terminal Workspace.png",
+    "content_sha256": "af6b9db636c9304a1f040eeeebf0db26d34ef1b3451cdee473ba89cbd027897b",
+    "content_hash": "af6b9db636c9304a1f040eeeebf0db26d34ef1b3451cdee473ba89cbd027897b",
+    "media_type": "image",
+    "file_size_bytes": 1581982,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "b569b54a49da5a4a"
+    },
+    "perceptual_hash": "b569b54a49da5a4a",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 5.3066,
+        "residual_mean_abs": 1.6423,
+        "residual_p95_abs": 6.0271,
+        "regional_noise_cv": 0.6842
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0138,
+        "edge_density_std": 0.0181,
+        "edge_density_cv": 1.3048
+      },
+      "consistency": {
+        "block_boundary_ratio": 1.0122,
+        "channel_noise_spread": 0.3998
+      },
+      "subscores": {
+        "noise_residual_component": 0.1895,
+        "regional_noise_variance_component": 0.5702,
+        "regional_edge_variance_component": 0.1293,
+        "block_consistency_component": 0.0152,
+        "channel_spread_component": 0.0999,
+        "visual_heuristic_score": 0.2432
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.2432,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:40:16.683625+00:00",
+    "recorded_at": "2026-11-25T13:40:16.683625+00:00",
+    "previous_hash": "1d6b4c1606d40163e441941445e7229b0468bbb8c46b42563a37b8b28e3a122f",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.2432,
+      "deepfake_probability": 0.2432,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 5.3066,
+          "residual_mean_abs": 1.6423,
+          "residual_p95_abs": 6.0271,
+          "regional_noise_cv": 0.6842
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0138,
+          "edge_density_std": 0.0181,
+          "edge_density_cv": 1.3048
+        },
+        "consistency": {
+          "block_boundary_ratio": 1.0122,
+          "channel_noise_spread": 0.3998
+        },
+        "subscores": {
+          "noise_residual_component": 0.1895,
+          "regional_noise_variance_component": 0.5702,
+          "regional_edge_variance_component": 0.1293,
+          "block_consistency_component": 0.0152,
+          "channel_spread_component": 0.0999,
+          "visual_heuristic_score": 0.2432
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 180.93,
+      "timestamp": "2026-11-25T13:40:16.683625+00:00",
+      "decode_time_ms": 43.2
+    },
+    "record_hash": "05dabc3ad2f2d61740e81e96f33d3d4513e084508eab84c70b7a37bc0c27137f",
+    "block_hash": "05dabc3ad2f2d61740e81e96f33d3d4513e084508eab84c70b7a37bc0c27137f",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0xd0f972f9c416d104081badaa4d8e7e35c7bdf3975bda5e7d715f1a7f24e783e8",
+      "block_number": 23,
+      "block_hash": "0x473b55adcdc42036636df669ca05c84c98737324b66adf9f366ff6b4be0a9033",
+      "block_timestamp": "2026-11-25T13:40:16+00:00",
+      "gas_used": 444115,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0xe64d5a5bced5101e0f08ce3a5720c10c1567442841aa72d5f8a9b801ed593dc4",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0027-09B346C8",
+    "sequence_number": 27,
+    "index": 27,
+    "filename": "2024-08-10 17-57-03-vertical.mkv",
+    "content_sha256": "0963e6e85cee076f7fd736d59b2d304054010bbd9ea3b802461df87e89625e4a",
+    "content_hash": "0963e6e85cee076f7fd736d59b2d304054010bbd9ea3b802461df87e89625e4a",
+    "media_type": "video",
+    "file_size_bytes": 15355233,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "sampled-frame-set",
+      "frame_count": 11,
+      "frame_phashes": [
+        "852f7af08d87d06c",
+        "852f7af08c87d16c",
+        "9c2f63d09ca7d06a",
+        "8d0f7af08d87d868",
+        "8d0f7af08d87d06c",
+        "850f7af09e87d168",
+        "990f66f09887e46e",
+        "852f7bf08c83d06e",
+        "9963768ce0729ce5",
+        "ad471eb0609fb163",
+        "a94f1eb0609fb362"
+      ],
+      "primary_reference": "vframes:0634f8dafa5de7bf86e07f00",
+      "frame_set_digest_sha256": "0634f8dafa5de7bf86e07f00a96116991e17a982f79e6d2399522c7ec59b58ff"
+    },
+    "perceptual_hash": "vframes:0634f8dafa5de7bf86e07f00",
+    "analysis_indicators": {
+      "aggregation_rule": "0.5 * mean_frame_score + 0.5 * max_frame_score",
+      "mean_frame_score": 0.3734,
+      "max_frame_score": 0.3809,
+      "weak_filename_marker_found": false,
+      "weak_filename_markers": []
+    },
+    "heuristic_score": 0.3771,
+    "verdict": "Review Required",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T13:42:47.055689+00:00",
+    "recorded_at": "2026-11-25T13:42:47.055689+00:00",
+    "previous_hash": "05dabc3ad2f2d61740e81e96f33d3d4513e084508eab84c70b7a37bc0c27137f",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.3771,
+      "deepfake_probability": 0.3771,
+      "verdict": "Review Required",
+      "authenticity_flag": "Review Required",
+      "aggregation_rule": "0.5 * mean_frame_score + 0.5 * max_frame_score",
+      "mean_frame_score": 0.3734,
+      "max_frame_score": 0.3809,
+      "interpretation_note": "Sampled-frame heuristic suspicion score. Sparse frame sampling may miss short manipulated segments and does not analyze audio or audiovisual synchronization.",
+      "manipulation_type": "Aggregated across 11 sampled frames (mean=0.3734, max=0.3809).",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "video",
+      "dimensions": {
+        "width": 1080,
+        "height": 1920
+      },
+      "frames_analyzed": 11,
+      "total_frame_count": 2311,
+      "fps": 60.0,
+      "duration_seconds": 38.52,
+      "audio_analysis_performed": false,
+      "video_perceptual_fingerprint": {
+        "algorithm": "dct-64-median-ac-v1",
+        "mode": "sampled-frame-set",
+        "frame_count": 11,
+        "frame_phashes": [
+          "852f7af08d87d06c",
+          "852f7af08c87d16c",
+          "9c2f63d09ca7d06a",
+          "8d0f7af08d87d868",
+          "8d0f7af08d87d06c",
+          "850f7af09e87d168",
+          "990f66f09887e46e",
+          "852f7bf08c83d06e",
+          "9963768ce0729ce5",
+          "ad471eb0609fb163",
+          "a94f1eb0609fb362"
+        ],
+        "primary_reference": "vframes:0634f8dafa5de7bf86e07f00",
+        "frame_set_digest_sha256": "0634f8dafa5de7bf86e07f00a96116991e17a982f79e6d2399522c7ec59b58ff"
+      },
+      "frame_results": [
+        {
+          "frame_index": 0,
+          "timestamp_seconds": 0.0,
+          "heuristic_score": 0.3809,
+          "verdict": "Review Required",
+          "frame_phash": "852f7af08d87d06c",
+          "noise_residual_std": 7.0076,
+          "edge_density_std": 0.0326
+        },
+        {
+          "frame_index": 210,
+          "timestamp_seconds": 3.5,
+          "heuristic_score": 0.375,
+          "verdict": "Review Required",
+          "frame_phash": "852f7af08c87d16c",
+          "noise_residual_std": 7.0201,
+          "edge_density_std": 0.0322
+        },
+        {
+          "frame_index": 420,
+          "timestamp_seconds": 7.0,
+          "heuristic_score": 0.3717,
+          "verdict": "Review Required",
+          "frame_phash": "9c2f63d09ca7d06a",
+          "noise_residual_std": 6.9805,
+          "edge_density_std": 0.0318
+        },
+        {
+          "frame_index": 630,
+          "timestamp_seconds": 10.5,
+          "heuristic_score": 0.3739,
+          "verdict": "Review Required",
+          "frame_phash": "8d0f7af08d87d868",
+          "noise_residual_std": 6.8994,
+          "edge_density_std": 0.0325
+        },
+        {
+          "frame_index": 840,
+          "timestamp_seconds": 14.0,
+          "heuristic_score": 0.3776,
+          "verdict": "Review Required",
+          "frame_phash": "8d0f7af08d87d06c",
+          "noise_residual_std": 7.0306,
+          "edge_density_std": 0.0326
+        },
+        {
+          "frame_index": 1050,
+          "timestamp_seconds": 17.5,
+          "heuristic_score": 0.3751,
+          "verdict": "Review Required",
+          "frame_phash": "850f7af09e87d168",
+          "noise_residual_std": 6.9647,
+          "edge_density_std": 0.0322
+        },
+        {
+          "frame_index": 1260,
+          "timestamp_seconds": 21.0,
+          "heuristic_score": 0.3759,
+          "verdict": "Review Required",
+          "frame_phash": "990f66f09887e46e",
+          "noise_residual_std": 6.7567,
+          "edge_density_std": 0.0319
+        },
+        {
+          "frame_index": 1470,
+          "timestamp_seconds": 24.5,
+          "heuristic_score": 0.3712,
+          "verdict": "Review Required",
+          "frame_phash": "852f7bf08c83d06e",
+          "noise_residual_std": 6.9211,
+          "edge_density_std": 0.0316
+        },
+        {
+          "frame_index": 1680,
+          "timestamp_seconds": 28.0,
+          "heuristic_score": 0.3798,
+          "verdict": "Review Required",
+          "frame_phash": "9963768ce0729ce5",
+          "noise_residual_std": 7.3965,
+          "edge_density_std": 0.0324
+        },
+        {
+          "frame_index": 1890,
+          "timestamp_seconds": 31.5,
+          "heuristic_score": 0.3626,
+          "verdict": "Review Required",
+          "frame_phash": "ad471eb0609fb163",
+          "noise_residual_std": 6.7376,
+          "edge_density_std": 0.0203
+        },
+        {
+          "frame_index": 2100,
+          "timestamp_seconds": 35.0,
+          "heuristic_score": 0.364,
+          "verdict": "Review Required",
+          "frame_phash": "a94f1eb0609fb362",
+          "noise_residual_std": 6.7379,
+          "edge_density_std": 0.0201
+        }
+      ],
+      "indicators": {
+        "aggregation_rule": "0.5 * mean_frame_score + 0.5 * max_frame_score",
+        "mean_frame_score": 0.3734,
+        "max_frame_score": 0.3809,
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      },
+      "analysis_time_ms": 5948.08,
+      "timestamp": "2026-11-25T13:42:47.055689+00:00"
+    },
+    "record_hash": "2901cc427b017b4d854ee65e58a4ffd6f9e66b7a06625bb93c7f706dfa6d1bd9",
+    "block_hash": "2901cc427b017b4d854ee65e58a4ffd6f9e66b7a06625bb93c7f706dfa6d1bd9",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0x47315529dec54f2b5b5e3ec242beb4a673c0d1092aa1d81cb4b7b9966eacb7cc",
+      "block_number": 24,
+      "block_hash": "0xeef2335a3b9ea8206cfc17f2b784579d577cd56b2fcf88296c3133c613b0e184",
+      "block_timestamp": "2026-11-25T13:42:47+00:00",
+      "gas_used": 466622,
+      "tx_status": 1,
+      "contract_address": "0xe982E462b094850F12AF94d21D470e21bE9D0E9C",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0x1240b356954c47cac536e27641cd402583321e3dd5c5cdcfbdaec838e90d3ccd",
+      "error": null
+    }
+  },
+  {
+    "schema_version": "2.0-canonical",
+    "verification_id": "VRT-0028-CC3587D7",
+    "sequence_number": 28,
+    "index": 28,
+    "filename": "TWH VIRAJ.png",
+    "content_sha256": "b41f7baf5e3a8d4b83281a16ede86806ed2d12264d4f0981d443843bacdbc52c",
+    "content_hash": "b41f7baf5e3a8d4b83281a16ede86806ed2d12264d4f0981d443843bacdbc52c",
+    "media_type": "image",
+    "file_size_bytes": 2004109,
+    "perceptual_fingerprints": {
+      "algorithm": "dct-64-median-ac-v1",
+      "mode": "image",
+      "primary_phash": "c738280f91dc976e"
+    },
+    "perceptual_hash": "c738280f91dc976e",
+    "analysis_indicators": {
+      "noise_residual": {
+        "gaussian_sigma": 2.0,
+        "residual_std": 13.9034,
+        "residual_mean_abs": 7.8228,
+        "residual_p95_abs": 29.5022,
+        "regional_noise_cv": 0.4718
+      },
+      "regional_edge_density": {
+        "grid_regions": 16,
+        "edge_density_mean": 0.0716,
+        "edge_density_std": 0.0466,
+        "edge_density_cv": 0.6498
+      },
+      "consistency": {
+        "block_boundary_ratio": 0.9914,
+        "channel_noise_spread": 0.5382
+      },
+      "subscores": {
+        "noise_residual_component": 0.4965,
+        "regional_noise_variance_component": 0.3932,
+        "regional_edge_variance_component": 0.3329,
+        "block_consistency_component": 0.0,
+        "channel_spread_component": 0.1346,
+        "visual_heuristic_score": 0.3439
+      },
+      "provenance": {
+        "metadata_status": "unavailable_evidence",
+        "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+        "safe_exif_fields": {},
+        "generator_metadata_found": false,
+        "generator_metadata_markers": [],
+        "weak_filename_marker_found": false,
+        "weak_filename_markers": []
+      }
+    },
+    "heuristic_score": 0.3439,
+    "verdict": "Low Evidence",
+    "detector_version": "heuristic-v2.0.0",
+    "configuration_id": "cfg-2026.11-baseline",
+    "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+    "server_timestamp": "2026-11-25T15:26:00.341267+00:00",
+    "recorded_at": "2026-11-25T15:26:00.341267+00:00",
+    "previous_hash": "2901cc427b017b4d854ee65e58a4ffd6f9e66b7a06625bb93c7f706dfa6d1bd9",
+    "ai_result": {
+      "detector_type": "heuristic_baseline",
+      "detector_version": "heuristic-v2.0.0",
+      "config_id": "cfg-2026.11-baseline",
+      "analysis_config_id": "heuristic-v2.0.0:cfg-2026.11-baseline",
+      "is_calibrated_probability": false,
+      "heuristic_score": 0.3439,
+      "deepfake_probability": 0.3439,
+      "verdict": "Low Evidence",
+      "authenticity_flag": "Low Evidence",
+      "interpretation_note": "Heuristic suspicion score (uncalibrated statistical baseline, not a trained deep-learning probability).",
+      "manipulation_type": "Statistical noise and regional edge indicators show low manipulation evidence.",
+      "ai_generated_provenance": false,
+      "ai_generated": false,
+      "media_type": "image",
+      "dimensions": {
+        "width": 1280,
+        "height": 720
+      },
+      "indicators": {
+        "noise_residual": {
+          "gaussian_sigma": 2.0,
+          "residual_std": 13.9034,
+          "residual_mean_abs": 7.8228,
+          "residual_p95_abs": 29.5022,
+          "regional_noise_cv": 0.4718
+        },
+        "regional_edge_density": {
+          "grid_regions": 16,
+          "edge_density_mean": 0.0716,
+          "edge_density_std": 0.0466,
+          "edge_density_cv": 0.6498
+        },
+        "consistency": {
+          "block_boundary_ratio": 0.9914,
+          "channel_noise_spread": 0.5382
+        },
+        "subscores": {
+          "noise_residual_component": 0.4965,
+          "regional_noise_variance_component": 0.3932,
+          "regional_edge_variance_component": 0.3329,
+          "block_consistency_component": 0.0,
+          "channel_spread_component": 0.1346,
+          "visual_heuristic_score": 0.3439
+        },
+        "provenance": {
+          "metadata_status": "unavailable_evidence",
+          "metadata_interpretation": "Metadata inspected; missing fields are unavailable evidence, not proof of manipulation.",
+          "safe_exif_fields": {},
+          "generator_metadata_found": false,
+          "generator_metadata_markers": [],
+          "weak_filename_marker_found": false,
+          "weak_filename_markers": []
+        }
+      },
+      "analysis_time_ms": 178.8,
+      "timestamp": "2026-11-25T15:26:00.341267+00:00",
+      "decode_time_ms": 48.88
+    },
+    "record_hash": "65cb23874b9c2751c01695741f39171d6c0484a8f37b7d89c5890c005690ed29",
+    "block_hash": "65cb23874b9c2751c01695741f39171d6c0484a8f37b7d89c5890c005690ed29",
+    "blockchain": {
+      "anchoring_status": "anchored",
+      "tx_hash": "0xad505b3359ca130d430f51390f3de10a3b29cdb5343783a530d1fb6f02c0dcd8",
+      "block_number": 2,
+      "block_hash": "0xaaf3c98a49bdb5af3626adb8da8c1ed07795b9c15602fae6f1b71927c3cb9012",
+      "block_timestamp": "2026-11-25T15:26:00+00:00",
+      "gas_used": 461203,
+      "tx_status": 1,
+      "contract_address": "0xe78A0F7E598Cc8b0Bb87894B0F60dD2a88d6a8Ab",
+      "chain_id": 1337,
+      "network_name": "Ganache Local",
+      "submitter": "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+      "event_key": "0x4c2eaa57630a0a0c565a0fa8ba369bca67ca168b3893d1fee30be55f4bac10e8",
+      "error": null
+    }
   }
 ]
