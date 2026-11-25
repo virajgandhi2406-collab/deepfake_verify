@@ -132,7 +132,7 @@ async function renderDashboardView() {
     <div class="view-header">
       <div>
         <div class="kicker">Live Telemetry &amp; Audit Overview</div>
-        <h1>VERITY Verification Dashboard</h1>
+        <h1>VERIFY Verification Dashboard</h1>
         <p class="view-sub">Real-time metrics derived directly from the canonical audit ledger and deployed Ethereum smart contract.</p>
       </div>
       <div style="display:flex;gap:10px">
@@ -277,7 +277,7 @@ function renderVerifyView() {
           <h2>2. Quick Check: Was This Already Verified?</h2>
         </div>
         <p style="color:var(--text-muted);margin-top:4px">
-          Check if an image, video, SHA-256 hash, or Verification ID (<code>VRT-...</code>) already exists in VERITY without creating a new record.
+          Check if an image, video, SHA-256 hash, or Verification ID (<code>VRT-...</code>) already exists in VERIFY without creating a new record.
         </p>
 
         <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
@@ -299,7 +299,7 @@ function renderVerifyView() {
     <div id="verificationResultArea">${state.lastResult ? renderResultHtml(state.lastResult) : ""}</div>
 
     <details class="advanced-box">
-      <summary>How VERITY Works &amp; Interpretation Notes</summary>
+      <summary>How VERIFY Works &amp; Interpretation Notes</summary>
       <div class="kv-list" style="margin-top:10px">
         <div class="kv-row"><span class="kv-key">1. Manipulation Check</span><span class="kv-val">Noise residual R = I &minus; G&sigma;(I), 4&times;4 edge density, EXIF inspection (samples up to 12 frames for videos)</span></div>
         <div class="kv-row"><span class="kv-key">2. File Identity</span><span class="kv-val">Exact SHA-256 on raw bytes + 64-bit DCT perceptual hash for visual similarity</span></div>
@@ -386,7 +386,7 @@ function renderVerifyView() {
 async function runQuickCheck(query) {
   const out = $("quickCheckResult");
   const cleaned = query.trim();
-  out.innerHTML = `<div class="notice-box">Checking VERITY records...</div>`;
+  out.innerHTML = `<div class="notice-box">Checking VERIFY records...</div>`;
   try {
     if (/^VRT-/i.test(cleaned)) {
       const res = await fetchJson(`/verify-certificate/${encodeURIComponent(cleaned)}?format=json`);
@@ -489,18 +489,19 @@ async function executeVerification() {
   }
 }
 
-function explainVerdictPlain(verdict, scoreVal) {
+function explainVerdictPlain(verdict, cleanPct) {
   const v = String(verdict || "Inconclusive");
+  const pctNote = cleanPct !== null ? ` (${cleanPct}% clean signal)` : "";
   if (v === "Low Evidence" || v === "Authentic") {
-    return `Low Evidence (score ${scoreVal}) — No strong manipulation signals were detected by the baseline checks.`;
+    return `Looks Authentic${pctNote} — No strong signs of tampering or AI generation were detected.`;
   }
   if (v === "Review Required" || v === "Potentially Manipulated") {
-    return `Review Required (score ${scoreVal}) — Some visual anomalies were found; manual inspection is recommended.`;
+    return `Needs Review${pctNote} — Some unusual visual patterns were found; please inspect carefully.`;
   }
   if (v === "Elevated Evidence of Manipulation" || v === "Manipulated" || v === "AI-Generated") {
-    return `Elevated Evidence (score ${scoreVal}) — Strong manipulation or AI-generation indicators were detected.`;
+    return `High Manipulation Risk${pctNote} — Strong signs of editing or AI generation were detected.`;
   }
-  return `${v} (score ${scoreVal}) — Unable to reach a clear forensic conclusion.`;
+  return `${v} — Not enough clear visual data to score reliably.`;
 }
 
 function renderResultHtml(cert) {
@@ -511,11 +512,33 @@ function renderResultHtml(cert) {
   const prov = ind.provenance || {};
   const sim = cert.similarity_matches || [];
   const timings = cert.timings_ms || {};
-  const scoreVal = typeof cert.heuristic_score === "number" ? cert.heuristic_score.toFixed(4) : "N/A";
-  const bcSummary =
-    bc.anchoring_status === "anchored" || bc.anchoring_status === "already_anchored"
-      ? `Saved locally and anchored on blockchain (Block #${bc.block_number ?? "confirmed"}).`
-      : "Saved in the local tamper-evident ledger (blockchain node offline).";
+  const rawScore = typeof cert.heuristic_score === "number" ? cert.heuristic_score : null;
+  const riskPct = rawScore !== null ? Math.round(rawScore * 100) : null;
+  const cleanPct = riskPct !== null ? Math.max(0, 100 - riskPct) : null;
+  const vStr = String(cert.verdict || "Inconclusive");
+  const barCls =
+    vStr === "Low Evidence" || vStr === "Authentic"
+      ? "good"
+      : vStr === "Review Required" || vStr === "Potentially Manipulated"
+        ? "warn"
+        : "risk";
+  const friendlyTitle =
+    vStr === "Low Evidence" || vStr === "Authentic"
+      ? "Looks Authentic"
+      : vStr === "Review Required" || vStr === "Potentially Manipulated"
+        ? "Needs Review"
+        : vStr === "Elevated Evidence of Manipulation" || vStr === "Manipulated" || vStr === "AI-Generated"
+          ? "High Risk"
+          : vStr;
+  const historyFriendly = String(cert.hash_status || "").includes("exact match")
+    ? "Already Verified Before"
+    : String(cert.hash_status || "").includes("re-analysis")
+      ? "Re-checked File"
+      : "First Time Checked";
+  const bcAnchored = bc.anchoring_status === "anchored" || bc.anchoring_status === "already_anchored";
+  const bcSummary = bcAnchored
+    ? `Saved locally and anchored on blockchain (Block #${bc.block_number ?? "confirmed"}).`
+    : "Saved in the local tamper-evident ledger (blockchain node offline).";
 
   return `
     <section class="panel" aria-live="polite">
@@ -526,83 +549,87 @@ function renderResultHtml(cert) {
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <a class="btn primary" href="/certificate/${encodeURIComponent(cert.verification_id)}" target="_blank" rel="noopener">Download PDF Certificate</a>
-          <button type="button" class="btn" id="verifyCertEndpointBtn">Verify Endpoint</button>
-          ${bc.tx_hash ? `<button type="button" class="btn" id="inspectResultTxBtn">Inspect EVM Tx</button>` : ""}
+          <button type="button" class="btn" id="verifyCertEndpointBtn">Verify Certificate</button>
+          ${bc.tx_hash ? `<button type="button" class="btn" id="inspectResultTxBtn">Inspect Blockchain Tx</button>` : ""}
         </div>
       </div>
 
       <div class="plain-summary">
-        <div><strong>1. Manipulation Check:</strong> ${escapeHtml(explainVerdictPlain(cert.verdict, scoreVal))}</div>
-        <div><strong>2. File History Check:</strong> ${escapeHtml(cert.hash_status || "New registration")}${sim.length ? ` (${sim.length} visually similar file(s) found)` : ""}</div>
-        <div><strong>3. Record &amp; Blockchain:</strong> ${escapeHtml(bcSummary)}</div>
+        <div><strong>1. Manipulation Check:</strong> ${escapeHtml(explainVerdictPlain(cert.verdict, cleanPct))}</div>
+        <div><strong>2. File History Check:</strong> ${escapeHtml(historyFriendly)}${sim.length ? ` (${sim.length} visually similar file(s) found)` : ""}</div>
+        <div><strong>3. Tamper-Proof Record:</strong> ${escapeHtml(bcSummary)}</div>
       </div>
 
       <div class="grid-3">
         <div class="kpi-card">
-          <div class="kpi-label">Q1: Manipulation Evidence (Heuristic)</div>
-          <div class="kpi-value">${scoreVal}</div>
-          <div class="kpi-foot">${escapeHtml(cert.manipulation_type)}</div>
+          <div class="kpi-label">1. Manipulation Check</div>
+          <div class="kpi-value" style="font-size:22px">${cleanPct !== null ? `${cleanPct}% Clean` : escapeHtml(friendlyTitle)}</div>
+          <div class="score-bar-track"><div class="score-bar-fill ${barCls}" style="width:${cleanPct ?? 50}%"></div></div>
+          <div class="kpi-foot">${escapeHtml(friendlyTitle)}${riskPct !== null ? ` &bull; ${riskPct}% anomaly signal` : ""}</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Q2: Exact &amp; Perceptual Identity</div>
-          <div style="margin-top:8px">${anchorPill(cert.hash_status)}</div>
-          <div class="kpi-foot mono" style="margin-top:8px">pHash: ${escapeHtml(cert.perceptual_hash || "N/A")}</div>
+          <div class="kpi-label">2. File Identity Check</div>
+          <div style="margin-top:8px"><span class="pill info">${escapeHtml(historyFriendly)}</span></div>
+          <div class="kpi-foot" style="margin-top:10px">${sim.length ? `${sim.length} visually similar file(s) found` : "No visually similar duplicates found"}</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-label">Q3: Blockchain Anchoring</div>
-          <div style="margin-top:8px">${anchorPill(bc.anchoring_status)}</div>
-          <div class="kpi-foot mono" style="margin-top:8px">Block #${bc.block_number ?? "N/A"} | Seq #${cert.ledger_index}</div>
+          <div class="kpi-label">3. Tamper-Proof Record</div>
+          <div style="margin-top:8px">${bcAnchored ? '<span class="pill good">Saved on Blockchain</span>' : '<span class="pill warn">Saved Locally</span>'}</div>
+          <div class="kpi-foot mono" style="margin-top:10px">${bcAnchored ? `Block #${bc.block_number ?? "confirmed"} &bull; ` : ""}Record #${cert.ledger_index}</div>
         </div>
       </div>
 
-      <div class="grid-2">
-        <div class="panel" style="margin-bottom:0">
-          <h3>Cryptographic &amp; Blockchain Proof</h3>
-          <div class="kv-list">
-            <div class="kv-row"><span class="kv-key">SHA-256 (Raw Bytes)</span><span class="kv-val mono">${escapeHtml(cert.content_hash_sha256)}</span></div>
-            <div class="kv-row"><span class="kv-key">Perceptual Fingerprint</span><span class="kv-val mono">${escapeHtml(cert.perceptual_hash)}</span></div>
-            <div class="kv-row"><span class="kv-key">Detector / Config</span><span class="kv-val mono">${escapeHtml(cert.analysis_config_id)}</span></div>
-            <div class="kv-row"><span class="kv-key">Local Record Hash</span><span class="kv-val mono">${escapeHtml(cert.ledger_record_hash)}</span></div>
-            <div class="kv-row"><span class="kv-key">Smart Contract</span><span class="kv-val mono">${escapeHtml(bc.contract_address || "Not anchored")}</span></div>
-            <div class="kv-row"><span class="kv-key">Transaction Hash</span><span class="kv-val mono">${escapeHtml(bc.tx_hash || "N/A")}</span></div>
-            <div class="kv-row"><span class="kv-key">Block / Chain ID</span><span class="kv-val mono">${bc.block_number ?? "N/A"} / ${bc.chain_id ?? "N/A"} (${escapeHtml(bc.network_name || "N/A")})</span></div>
-            <div class="kv-row"><span class="kv-key">Submitter Wallet</span><span class="kv-val mono">${escapeHtml(bc.submitter || "N/A")}</span></div>
-            ${bc.error ? `<div class="kv-row"><span class="kv-key">Blockchain Error</span><span class="kv-val" style="color:#fb7185">${escapeHtml(bc.error)}</span></div>` : ""}
+      <details class="advanced-box">
+        <summary>Technical Details (Hashes, Smart Contract Proof &amp; Forensic Metrics)</summary>
+        <div class="grid-2" style="margin-top:14px">
+          <div class="panel" style="margin-bottom:0">
+            <h3>Cryptographic &amp; Blockchain Proof</h3>
+            <div class="kv-list">
+              <div class="kv-row"><span class="kv-key">SHA-256 (Raw Bytes)</span><span class="kv-val mono">${escapeHtml(cert.content_hash_sha256)}</span></div>
+              <div class="kv-row"><span class="kv-key">Perceptual Fingerprint</span><span class="kv-val mono">${escapeHtml(cert.perceptual_hash)}</span></div>
+              <div class="kv-row"><span class="kv-key">Detector / Config</span><span class="kv-val mono">${escapeHtml(cert.analysis_config_id)}</span></div>
+              <div class="kv-row"><span class="kv-key">Local Record Hash</span><span class="kv-val mono">${escapeHtml(cert.ledger_record_hash)}</span></div>
+              <div class="kv-row"><span class="kv-key">Smart Contract</span><span class="kv-val mono">${escapeHtml(bc.contract_address || "Not anchored")}</span></div>
+              <div class="kv-row"><span class="kv-key">Transaction Hash</span><span class="kv-val mono">${escapeHtml(bc.tx_hash || "N/A")}</span></div>
+              <div class="kv-row"><span class="kv-key">Block / Chain ID</span><span class="kv-val mono">${bc.block_number ?? "N/A"} / ${bc.chain_id ?? "N/A"} (${escapeHtml(bc.network_name || "N/A")})</span></div>
+              <div class="kv-row"><span class="kv-key">Submitter Wallet</span><span class="kv-val mono">${escapeHtml(bc.submitter || "N/A")}</span></div>
+              ${bc.error ? `<div class="kv-row"><span class="kv-key">Blockchain Error</span><span class="kv-val" style="color:#fb7185">${escapeHtml(bc.error)}</span></div>` : ""}
+            </div>
+          </div>
+
+          <div class="panel" style="margin-bottom:0">
+            <h3>Forensic Indicators &amp; Timings</h3>
+            <div class="kv-list">
+              ${noise.residual_std !== undefined ? `<div class="kv-row"><span class="kv-key">Noise Residual (R = I − Gσ(I))</span><span class="kv-val mono">std=${noise.residual_std}, CV=${noise.regional_noise_cv}</span></div>` : ""}
+              ${edge.edge_density_std !== undefined ? `<div class="kv-row"><span class="kv-key">Regional Edge Density (4×4)</span><span class="kv-val mono">mean=${edge.edge_density_mean}, std=${edge.edge_density_std}</span></div>` : ""}
+              ${prov.metadata_status ? `<div class="kv-row"><span class="kv-key">EXIF / Metadata</span><span class="kv-val">${escapeHtml(prov.metadata_status)} (gen_meta=${prov.generator_metadata_found}, filename_clue=${prov.weak_filename_marker_found})</span></div>` : ""}
+              ${cert.frames_analyzed ? `<div class="kv-row"><span class="kv-key">Video Sampling</span><span class="kv-val">${cert.frames_analyzed} frames | ${cert.duration_seconds}s | mean=${cert.mean_frame_score}, max=${cert.max_frame_score}</span></div>` : ""}
+              <div class="kv-row"><span class="kv-key">Visual Similarity Matches</span><span class="kv-val">${sim.length ? sim.map((m) => `${shortHex(m.content_sha256, 10)} (d=${m.hamming_distance})`).join(", ") : "None within threshold"}</span></div>
+              <div class="kv-row"><span class="kv-key">Processing Timings (ms)</span><span class="kv-val mono">${Object.keys(timings).length ? Object.entries(timings).map(([k, v]) => `${k}=${v}`).join(" | ") : "Cached lookup"}</span></div>
+            </div>
           </div>
         </div>
 
-        <div class="panel" style="margin-bottom:0">
-          <h3>Forensic Indicators &amp; Timings</h3>
-          <div class="kv-list">
-            ${noise.residual_std !== undefined ? `<div class="kv-row"><span class="kv-key">Noise Residual (R = I − Gσ(I))</span><span class="kv-val mono">std=${noise.residual_std}, CV=${noise.regional_noise_cv}</span></div>` : ""}
-            ${edge.edge_density_std !== undefined ? `<div class="kv-row"><span class="kv-key">Regional Edge Density (4×4)</span><span class="kv-val mono">mean=${edge.edge_density_mean}, std=${edge.edge_density_std}</span></div>` : ""}
-            ${prov.metadata_status ? `<div class="kv-row"><span class="kv-key">EXIF / Metadata</span><span class="kv-val">${escapeHtml(prov.metadata_status)} (gen_meta=${prov.generator_metadata_found}, filename_clue=${prov.weak_filename_marker_found})</span></div>` : ""}
-            ${cert.frames_analyzed ? `<div class="kv-row"><span class="kv-key">Video Sampling</span><span class="kv-val">${cert.frames_analyzed} frames | ${cert.duration_seconds}s | mean=${cert.mean_frame_score}, max=${cert.max_frame_score}</span></div>` : ""}
-            <div class="kv-row"><span class="kv-key">Visual Similarity Matches</span><span class="kv-val">${sim.length ? sim.map((m) => `${shortHex(m.content_sha256, 10)} (d=${m.hamming_distance})`).join(", ") : "None within threshold"}</span></div>
-            <div class="kv-row"><span class="kv-key">Processing Timings (ms)</span><span class="kv-val mono">${Object.keys(timings).length ? Object.entries(timings).map(([k, v]) => `${k}=${v}`).join(" | ") : "Cached lookup"}</span></div>
+        ${Array.isArray(cert.frame_results) && cert.frame_results.length ? `
+          <div style="margin-top:16px">
+            <h3>Sampled Video Frame Analysis</h3>
+            <div class="table-wrapper" style="max-block-size:260px">
+              <table class="data-table">
+                <thead><tr><th>Frame #</th><th>Timestamp (s)</th><th>Score</th><th>Verdict</th><th>Frame pHash</th></tr></thead>
+                <tbody>
+                  ${cert.frame_results.map((fr) => `<tr>
+                    <td class="mono">${fr.frame_index}</td>
+                    <td class="mono">${fr.timestamp_seconds}</td>
+                    <td class="mono">${fr.heuristic_score.toFixed(4)}</td>
+                    <td>${verdictPill(fr.verdict)}</td>
+                    <td class="mono">${escapeHtml(fr.frame_phash)}</td>
+                  </tr>`).join("")}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </div>
-
-      ${Array.isArray(cert.frame_results) && cert.frame_results.length ? `
-        <div style="margin-top:16px">
-          <h3>Sampled Video Frame Analysis</h3>
-          <div class="table-wrapper" style="max-block-size:260px">
-            <table class="data-table">
-              <thead><tr><th>Frame #</th><th>Timestamp (s)</th><th>Heuristic Score</th><th>Verdict</th><th>Frame pHash</th></tr></thead>
-              <tbody>
-                ${cert.frame_results.map((fr) => `<tr>
-                  <td class="mono">${fr.frame_index}</td>
-                  <td class="mono">${fr.timestamp_seconds}</td>
-                  <td class="mono">${fr.heuristic_score.toFixed(4)}</td>
-                  <td>${verdictPill(fr.verdict)}</td>
-                  <td class="mono">${escapeHtml(fr.frame_phash)}</td>
-                </tr>`).join("")}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ` : ""}
+        ` : ""}
+      </details>
     </section>
   `;
 }
@@ -963,7 +990,7 @@ function renderResearchView() {
       <div>
         <div class="kicker">Methodology &amp; Experimental Protocol</div>
         <h1>Research Design &amp; Technical Architecture</h1>
-        <p class="view-sub">Aligned with the submitted synopsis and first research draft for VERITY.</p>
+        <p class="view-sub">Aligned with the submitted synopsis and first research draft for VERIFY.</p>
       </div>
     </div>
 
@@ -985,13 +1012,13 @@ function renderResearchView() {
   `;
 }
 
-/* ==================== H. ABOUT VERITY ==================== */
+/* ==================== H. ABOUT VERIFY ==================== */
 function renderAboutView() {
   $("pageContent").innerHTML = `
     <div class="view-header">
       <div>
         <div class="kicker">Academic Identity — Group No. 27</div>
-        <h1>About VERITY</h1>
+        <h1>About VERIFY</h1>
         <p class="view-sub">Blockchain-Based Verification System for Digital Content Authenticity and Deepfake Detection</p>
       </div>
     </div>
