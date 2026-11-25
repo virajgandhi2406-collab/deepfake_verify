@@ -1056,12 +1056,12 @@ function renderAboutView() {
         <div class="kpi-card">
           <h3>Gandhi Viraj Prashant Kumar</h3>
           <div class="mono" style="font-size:12px;color:var(--blue-bright)">PRN 1272260230</div>
-          <p style="font-size:12.5px;color:var(--text-muted)">Handled dashboard and user interaction design, upload-to-result demonstration workflow, frontend-API integration, and certificate presentation.</p>
+          <p style="font-size:12.5px;color:var(--text-muted)">Built the complete working project demo, including dual-layer hashing integration, dashboard and user interaction design, upload-to-result workflow, frontend-API integration, and certificate presentation.</p>
         </div>
         <div class="kpi-card">
           <h3>Vraj Modi Jitendra Kumar</h3>
           <div class="mono" style="font-size:12px;color:var(--blue-bright)">PRN 1272260212</div>
-          <p style="font-size:12.5px;color:var(--text-muted)">Supported test-case preparation, sample-media organization, hashing/lookup/integrity evaluation checklists, and submission consistency review.</p>
+          <p style="font-size:12.5px;color:var(--text-muted)">Supported test-case preparation, sample-media organization, lookup and integrity evaluation checklists, and submission consistency review.</p>
         </div>
       </div>
     </section>
